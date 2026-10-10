@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Relatórios · CajuCake</title>
+  <meta name="description" content="Relatórios para WhatsApp da CajuCake">
+  <meta name="theme-color" content="#d6457a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap">
+
+  <!-- Shoelace: biblioteca de componentes (https://shoelace.style) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css?v=3.1">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo__conteudo">
+      <span class="topo__logo" aria-hidden="true">📦</span>
+      <div>
+        <h1>Relatórios</h1>
+        <p>CajuCake · mensagens para WhatsApp</p>
+      </div>
+      <nav class="menu" aria-label="Páginas">
+        <a href="./">🎂 Orçamentos</a>
+        <a href="relatorios.html" aria-current="page">📦 Relatórios</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="selecao" aria-label="Dados do relatório">
+      <sl-tab-group id="abas-relatorios"></sl-tab-group>
+    </section>
+
+    <aside class="resumo" id="resumo" aria-label="Mensagem">
+      <div class="resumo__cartao">
+        <div class="resumo__cabecalho">
+          <h2 id="titulo-resumo">Relatório</h2>
+          <div class="resumo__total" id="total">0</div>
+        </div>
+
+        <div class="campos-relatorio">
+          <sl-input type="date" id="data-relatorio" label="Data" size="small"></sl-input>
+          <sl-input id="observacoes" label="Observação (opcional)" size="small" clearable
+            placeholder="Ex.: encomendas da semana já separadas"></sl-input>
+        </div>
+
+        <sl-textarea id="texto-relatorio" rows="12" resize="auto" label="Mensagem para WhatsApp"></sl-textarea>
+
+        <div class="acoes">
+          <sl-button variant="primary" id="btn-whatsapp" size="large">
+            <sl-icon slot="prefix" name="whatsapp"></sl-icon>
+            Enviar no WhatsApp
+          </sl-button>
+          <sl-button id="btn-copiar" size="large">
+            <sl-icon slot="prefix" name="clipboard"></sl-icon>
+            Copiar texto
+          </sl-button>
+        </div>
+
+        <div class="resumo__rodape">
+          <small class="mensagem-suave">A contagem fica salva neste aparelho.</small>
+          <sl-button variant="text" size="small" id="btn-limpar">
+            <sl-icon slot="prefix" name="trash"></sl-icon>
+            Zerar
+          </sl-button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="barra-mobile">
+    <div>
+      <small>Total</small>
+      <strong id="total-mobile">0</strong>
+    </div>
+    <sl-button pill variant="primary" id="btn-ver-mensagem">
+      <sl-icon slot="prefix" name="chat-text"></sl-icon>
+      Ver mensagem
+    </sl-button>
+  </div>
+
+  <script type="module" src="js/relatorios/app.js?v=3.1"></script>
+</body>
+
+</html>

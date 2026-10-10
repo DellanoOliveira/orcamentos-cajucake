@@ -6,6 +6,7 @@ import { sugerirArranjosGulosos, sugerirBolosDeCorte } from './sugestao.js';
 import { desenharNoCanvas } from './desenho-bolo.js';
 import { carregarFotosReais, buscarFotosReais } from './fotos-reais.js';
 import { gerarImagemOrcamento } from './imagem-orcamento.js';
+import { contador, sincronizarContador, notificar, copiarTexto } from './componentes.js';
 
 const $ = (seletor, raiz = document) => raiz.querySelector(seletor);
 const $$ = (seletor, raiz = document) => [...raiz.querySelectorAll(seletor)];
@@ -89,15 +90,6 @@ function zerarEstado() {
 // =====================================================================
 // Renderização inicial
 // =====================================================================
-
-function contador(alvo, chave, passo = 1) {
-    return `
-      <div class="contador" data-alvo="${alvo}" data-chave="${chave}" data-passo="${passo}">
-        <button type="button" data-delta="-1" aria-label="Diminuir">−</button>
-        <input type="number" min="0" inputmode="numeric" value="0" aria-label="Quantidade">
-        <button type="button" data-delta="1" aria-label="Aumentar">+</button>
-      </div>`;
-}
 
 function renderizarBolos() {
     $('#grade-bolos').innerHTML = dados.bolos.bolos.map((bolo) => `
@@ -225,7 +217,7 @@ function ligarEventos() {
         salvarPreferencia('incluirFoto', estado.incluirFoto);
     });
 
-    $('#btn-copiar').addEventListener('click', copiarTexto);
+    $('#btn-copiar').addEventListener('click', () => copiarTexto($('#texto-orcamento').value));
     $('#btn-imagem').addEventListener('click', gerarImagem);
     $('#btn-baixar').addEventListener('click', baixarImagem);
     $('#btn-compartilhar').addEventListener('click', compartilharImagem);
@@ -446,11 +438,6 @@ function atualizar() {
     atualizarFotos();
 }
 
-function sincronizarContador(raiz, quantidade) {
-    const input = $('.contador input', raiz);
-    if (document.activeElement !== input || +input.value !== quantidade) input.value = quantidade;
-}
-
 function sincronizarBolos() {
     for (const bolo of dados.bolos.bolos) {
         const cartao = $(`[data-bolo="${bolo.tamanho}"]`);
@@ -547,22 +534,6 @@ function atualizarFotos(forcar = false) {
 // Ações
 // =====================================================================
 
-async function copiarTexto() {
-    const texto = $('#texto-orcamento').value;
-    try {
-        await navigator.clipboard.writeText(texto);
-    } catch (e) {
-        // navegadores antigos / http sem HTTPS
-        const area = document.createElement('textarea');
-        area.value = texto;
-        document.body.append(area);
-        area.select();
-        document.execCommand('copy');
-        area.remove();
-    }
-    notificar('Texto copiado! É só colar no WhatsApp.', 'success', 'clipboard-check');
-}
-
 async function gerarImagem() {
     if (orcamentoAtual.vazio) {
         notificar('Adicione itens ao orçamento antes de gerar a imagem.', 'warning', 'exclamation-triangle');
@@ -626,14 +597,4 @@ function limpar() {
     $('#fatias-desejadas-corte').value = '';
     atualizarSugestoesBolos();
     atualizar();
-}
-
-function notificar(mensagem, variante = 'primary', icone = 'info-circle') {
-    const alerta = document.createElement('sl-alert');
-    alerta.setAttribute('variant', variante);
-    alerta.setAttribute('closable', '');
-    alerta.setAttribute('duration', '3500');
-    alerta.innerHTML = `<sl-icon slot="icon" name="${icone}"></sl-icon>${escaparHTML(mensagem)}`;
-    document.body.append(alerta);
-    customElements.whenDefined('sl-alert').then(() => alerta.toast());
 }

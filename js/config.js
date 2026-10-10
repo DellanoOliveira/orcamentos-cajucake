@@ -16,7 +16,8 @@ export const ARQUIVOS_DADOS = {
     bolosCorte: 'data/bolos-corte.json',
     outrosProdutos: 'data/outros-produtos.json',
     servicos: 'data/servicos.json',
-    fotosReais: 'data/fotos-reais.json'
+    fotosReais: 'data/fotos-reais.json',
+    estoque: 'data/estoque.json'
 };
 
 // Tipos de bolo decorado. "descricao" é o texto usado no orçamento.

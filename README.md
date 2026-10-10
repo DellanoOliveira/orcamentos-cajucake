@@ -6,13 +6,15 @@ basta publicar a pasta no servidor.
 ## Estrutura
 
 ```
-index.html                 página principal
+index.html                 calculadora de orçamentos
+relatorios.html            relatórios para WhatsApp (ex.: balanço de estoque)
 css/styles.css             estilos + tema (cores da marca aplicadas ao Shoelace)
 data/                      dados editáveis (preços, fatias, produtos)
   bolos.json               bolos decorados: tamanho → tipos (pasta, glacê, naked, fake, torta)
   bolos-corte.json         bolos de corte (seção própria, completam as fatias)
   outros-produtos.json     doces e salgados ("passo" = quanto o botão + soma)
   servicos.json            adicionais ("desconto": true subtrai do total)
+  estoque.json             sabores usados no balanço de estoque
   fotos-reais.json         índice das fotos reais (GERADO pelo script, não editar à mão)
 js/
   app.js                   ponto de entrada: estado, tela e eventos
@@ -23,6 +25,9 @@ js/
   imagem-orcamento.js      gera a imagem PNG compartilhável
   fotos-reais.js           serviço de fotos reais (busca exata ou mais parecida)
   util.js                  formatação de moeda/data, carregamento de JSON
+  componentes.js           peças de interface usadas nas duas páginas
+  relatorios/app.js        página de relatórios (lista de relatórios disponíveis)
+  relatorios/estoque.js    relatório: balanço de estoque
 img/fotos-reais/           fotos reais dos bolos (hoje: imagens provisórias .svg)
 scripts/
   gerar-manifesto-fotos.js atualiza data/fotos-reais.json
@@ -68,3 +73,13 @@ Legendas opcionais: `img/fotos-reais/legendas.json` → `{ "pasta/10-20-30.jpg":
 
 Edite os arquivos em `data/`. Para mudar nome da marca, cores da imagem ou nomes dos tipos, edite `js/config.js`.
 Ao publicar uma nova versão, aumente o `?v=` em `index.html` para evitar cache antigo.
+
+## Relatórios
+
+A página `relatorios.html` gera mensagens para WhatsApp que não são orçamentos.
+
+- **Balanço de Estoque**: quantidade de bolos por tamanho (mesmos do orçamento) e sabor.
+  Os sabores ficam em `data/estoque.json`. A última contagem fica salva no aparelho.
+
+Para criar um novo relatório, crie um arquivo em `js/relatorios/` seguindo o modelo de
+`estoque.js` e adicione-o na lista `RELATORIOS` em `js/relatorios/app.js`.

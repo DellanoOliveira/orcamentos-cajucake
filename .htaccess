@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteRule !\.(?:jpe?g|gif|bmp|png|tiff|webp|avif|svg|ico|css|js|json)$ index.html [L,NC]
+RewriteRule !\.(?:jpe?g|gif|bmp|png|tiff|webp|avif|svg|ico|css|js|json|html)$ index.html [L,NC]
 
 # php -- BEGIN cPanel-generated handler, do not edit
 # Defina o pacote “ea-php82” como a linguagem padrão de programação “PHP”.

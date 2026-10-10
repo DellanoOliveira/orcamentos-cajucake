@@ -673,3 +673,135 @@ sl-tab-panel::part(base) {
         font-weight: 600;
     }
 }
+
+/* ============================================================
+   Menu entre páginas (Orçamentos / Relatórios)
+   ============================================================ */
+.menu {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+    background: var(--cor-superficie);
+    padding: 4px;
+    border-radius: 999px;
+    box-shadow: var(--sombra-cartao);
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--cor-texto);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.menu a:hover {
+    background: var(--cor-primaria-suave);
+}
+
+.menu a[aria-current="page"] {
+    background: var(--cor-primaria);
+    color: #fff;
+}
+
+@media (max-width: 640px) {
+    .topo__conteudo {
+        flex-wrap: wrap;
+    }
+
+    .menu {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .menu a {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+/* ============================================================
+   Relatórios
+   ============================================================ */
+.campos-relatorio {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 10px;
+}
+
+@media (max-width: 420px) {
+    .campos-relatorio {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.cartao-estoque__topo {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.cartao-estoque__total {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+}
+
+.linha-sabor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 6px 6px 8px;
+    border-radius: 12px;
+    border: 1.5px solid transparent;
+    transition: background .15s, border-color .15s;
+}
+
+.linha-sabor.selecionado {
+    background: #fff;
+    border-color: var(--sl-color-primary-200);
+}
+
+.linha-sabor__marcar {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 8px;
+}
+
+.linha-sabor__marcar:focus-visible {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 3px;
+}
+
+.linha-sabor__marcar sl-icon {
+    font-size: 1.15rem;
+    color: var(--sl-color-neutral-300);
+}
+
+.linha-sabor.selecionado .linha-sabor__marcar sl-icon {
+    color: var(--cor-primaria);
+}
+
+.linha-sabor .contador input {
+    width: 44px;
+}
+
+.linha-sabor .contador button {
+    width: 32px;
+}
+
+.grade--estoque {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.linha-sabor__marcar span {
+    white-space: nowrap;
+}

@@ -1,0 +1,6 @@
+{
+  "sabores": [
+    { "id": "branco", "nome": "Branco", "plural": "Bolos Brancos", "emoji": "🤍" },
+    { "id": "chocolate", "nome": "Chocolate", "plural": "Bolos de Chocolate", "emoji": "🍫" }
+  ]
+}
