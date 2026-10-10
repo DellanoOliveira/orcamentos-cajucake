@@ -1,12 +1,13 @@
 // Ponto de entrada: carrega os dados, desenha a tela e mantém o estado do orçamento.
-import { ARQUIVOS_DADOS, TIPOS_BOLO, TIPO_PADRAO, ESTRATEGIAS } from './config.js';
-import { carregarJSON, formatarMoeda, escaparHTML, carimboArquivo, lerPreferencia, salvarPreferencia } from './util.js';
+import { ARQUIVOS_DADOS, TIPOS_BOLO, TIPO_PADRAO, ESTRATEGIAS, aplicarTiposDoCatalogo } from './config.js';
+import { formatarMoeda, escaparHTML, carimboArquivo, lerPreferencia, salvarPreferencia } from './util.js';
 import { montarOrcamento, gerarTextoOrcamento } from './orcamento.js';
 import { sugerirArranjosGulosos, sugerirBolosDeCorte } from './sugestao.js';
 import { desenharNoCanvas } from './desenho-bolo.js';
 import { carregarFotosReais, buscarFotosReais } from './fotos-reais.js';
 import { gerarImagemOrcamento } from './imagem-orcamento.js';
 import { contador, sincronizarContador, notificar, copiarTexto } from './componentes.js';
+import { api, iniciarSessao } from './api.js';
 
 const $ = (seletor, raiz = document) => raiz.querySelector(seletor);
 const $$ = (seletor, raiz = document) => [...raiz.querySelectorAll(seletor)];
@@ -15,7 +16,7 @@ const dados = {};
 const estado = {
     bolos: new Map(),      // tamanho -> { tipo, quantidade }
     cortes: new Map(),     // tamanho -> quantidade
-    produtos: new Map(),   // nome -> quantidade
+    produtos: new Map(),   // id do produto -> quantidade
     servicos: new Map(),   // descricao -> { ativo, valor }
     fatiasDesejadas: 0,
     tipoSugestao: TIPO_PADRAO,
@@ -36,15 +37,20 @@ iniciar().catch((erro) => {
 });
 
 async function iniciar() {
-    const [bolos, bolosCorte, outrosProdutos, servicos] = await Promise.all([
-        carregarJSON(ARQUIVOS_DADOS.bolos),
-        carregarJSON(ARQUIVOS_DADOS.bolosCorte),
-        carregarJSON(ARQUIVOS_DADOS.outrosProdutos),
-        carregarJSON(ARQUIVOS_DADOS.servicos)
+    await iniciarSessao();
+    const [catalogo] = await Promise.all([
+        api('catalogo'),
+        carregarFotosReais(ARQUIVOS_DADOS.fotosReais)
     ]);
-    Object.assign(dados, { bolos, bolosCorte, outrosProdutos, servicos });
-    adicionarTiposDerivados(bolos);
-    await carregarFotosReais(ARQUIVOS_DADOS.fotosReais);
+    aplicarTiposDoCatalogo(catalogo.tipos);
+    Object.assign(dados, {
+        bolos: catalogo.bolos,
+        bolosCorte: catalogo.bolosCorte,
+        secoesProdutos: catalogo.secoesProdutos,
+        servicos: catalogo.servicos,
+        produtosPorId: new Map(catalogo.secoesProdutos.flatMap((s) => s.produtos.map((p) => [p.id, p])))
+    });
+    if (!TIPOS_BOLO[estado.tipoSugestao]) estado.tipoSugestao = Object.keys(TIPOS_BOLO)[0];
 
     zerarEstado();
     renderizarBolos();
@@ -60,28 +66,13 @@ async function iniciar() {
     document.fonts?.ready.then(desenharPreview);
 }
 
-/** Cria os tipos com "derivado" em config.js (ex.: Fake 5cm = 50% do Fake) em cada tamanho. */
-function adicionarTiposDerivados(dadosBolos) {
-    for (const [nome, tipo] of Object.entries(TIPOS_BOLO)) {
-        if (!tipo.derivado) continue;
-        for (const bolo of dadosBolos.bolos) {
-            const origem = bolo.tipos[tipo.derivado.de];
-            if (!origem || bolo.tipos[nome]) continue;
-            bolo.tipos[nome] = {
-                valor: Math.round(origem.valor * tipo.derivado.fatorPreco * 100) / 100,
-                fatias: origem.fatias
-            };
-        }
-    }
-}
-
 function zerarEstado() {
     for (const bolo of dados.bolos.bolos) {
         const tipo = bolo.tipos[TIPO_PADRAO] ? TIPO_PADRAO : Object.keys(bolo.tipos)[0];
         estado.bolos.set(bolo.tamanho, { tipo, quantidade: 0 });
     }
     for (const corte of dados.bolosCorte.bolos) estado.cortes.set(corte.tamanho, 0);
-    for (const produto of dados.outrosProdutos.produtos) estado.produtos.set(produto.nome, 0);
+    for (const id of dados.produtosPorId.keys()) estado.produtos.set(id, 0);
     for (const servico of dados.servicos.servicos) {
         estado.servicos.set(servico.descricao, { ativo: false, valor: servico.valor });
     }
@@ -126,14 +117,28 @@ function renderizarCortes() {
       </article>`).join('');
 }
 
+/** Cada seção de produtos cadastrada vira uma aba, antes da aba "Adicionais". */
 function renderizarProdutos() {
-    $('#lista-produtos').innerHTML = dados.outrosProdutos.produtos.map((produto, indice) => `
-      <div class="linha" data-produto="${indice}">
-        <span class="linha__emoji" aria-hidden="true">${produto.emoji}</span>
-        <span class="linha__nome">${escaparHTML(produto.nome)}<small>${formatarMoeda(produto.valor)} / un.</small></span>
-        <span class="linha__subtotal" data-campo="subtotal"></span>
-        ${contador('produto', indice, produto.passo || 1)}
-      </div>`).join('');
+    const abas = $('#abas');
+    const abaAdicionais = $('sl-tab[panel="servicos"]', abas);
+    const painelAdicionais = $('sl-tab-panel[name="servicos"]', abas);
+    for (const secao of dados.secoesProdutos) {
+        abaAdicionais.insertAdjacentHTML('beforebegin', `
+          <sl-tab slot="nav" panel="secao-${secao.id}">${secao.emoji} ${escaparHTML(secao.nome)}
+            <sl-badge pill variant="neutral" data-badge-secao="${secao.id}">0</sl-badge></sl-tab>`);
+        painelAdicionais.insertAdjacentHTML('beforebegin', `
+          <sl-tab-panel name="secao-${secao.id}">
+            <div class="lista">
+              ${secao.produtos.length ? secao.produtos.map((produto) => `
+                <div class="linha" data-produto="${produto.id}">
+                  <span class="linha__emoji" aria-hidden="true">${produto.emoji}</span>
+                  <span class="linha__nome">${escaparHTML(produto.nome)}<small>${formatarMoeda(produto.valor)} / un.</small></span>
+                  <span class="linha__subtotal" data-campo="subtotal"></span>
+                  ${contador('produto', produto.id, produto.passo || 1)}
+                </div>`).join('') : '<p class="mensagem-suave">Nenhum produto nesta seção. Cadastre em ⚙️ Cadastros.</p>'}
+            </div>
+          </sl-tab-panel>`);
+    }
 }
 
 function renderizarServicos() {
@@ -155,6 +160,7 @@ function renderizarTiposSugestao() {
     const select = $('#tipo-sugestao');
     select.innerHTML = tiposComFatias
         .map((tipo) => `<sl-option value="${tipo}">${TIPOS_BOLO[tipo].nome}</sl-option>`).join('');
+    if (!tiposComFatias.includes(estado.tipoSugestao)) estado.tipoSugestao = tiposComFatias[0] || '';
     select.setAttribute('value', estado.tipoSugestao);
 }
 
@@ -285,14 +291,14 @@ function aoClicar(evento) {
 function lerQuantidade(alvo, chave) {
     if (alvo === 'bolo') return estado.bolos.get(+chave).quantidade;
     if (alvo === 'corte') return estado.cortes.get(+chave);
-    return estado.produtos.get(dados.outrosProdutos.produtos[+chave].nome);
+    return estado.produtos.get(+chave);
 }
 
 function definirQuantidade(alvo, chave, quantidade) {
     const valor = Math.max(0, Math.min(9999, Math.round(quantidade)));
     if (alvo === 'bolo') estado.bolos.get(+chave).quantidade = valor;
     else if (alvo === 'corte') estado.cortes.set(+chave, valor);
-    else estado.produtos.set(dados.outrosProdutos.produtos[+chave].nome, valor);
+    else estado.produtos.set(+chave, valor);
     atualizar();
 }
 
@@ -416,11 +422,16 @@ function atualizar() {
     const contagem = {
         bolos: [...estado.bolos.values()].filter((s) => s.quantidade > 0).length,
         cortes: [...estado.cortes.values()].filter((q) => q > 0).length,
-        produtos: [...estado.produtos.values()].filter((q) => q > 0).length,
         servicos: [...estado.servicos.values()].filter((s) => s.ativo).length
     };
     for (const [nome, quantidade] of Object.entries(contagem)) {
         const badge = $('#badge-' + nome);
+        badge.textContent = quantidade;
+        badge.variant = quantidade ? 'primary' : 'neutral';
+    }
+    for (const secao of dados.secoesProdutos) {
+        const quantidade = secao.produtos.filter((p) => estado.produtos.get(p.id) > 0).length;
+        const badge = $(`[data-badge-secao="${secao.id}"]`);
         badge.textContent = quantidade;
         badge.variant = quantidade ? 'primary' : 'neutral';
     }
@@ -465,9 +476,9 @@ function sincronizarCortes() {
 }
 
 function sincronizarProdutos() {
-    dados.outrosProdutos.produtos.forEach((produto, indice) => {
-        const linha = $(`[data-produto="${indice}"]`);
-        const quantidade = estado.produtos.get(produto.nome);
+    dados.produtosPorId.forEach((produto, id) => {
+        const linha = $(`[data-produto="${id}"]`);
+        const quantidade = estado.produtos.get(id);
         linha.classList.toggle('selecionado', quantidade > 0);
         $('[data-campo="subtotal"]', linha).textContent = quantidade ? formatarMoeda(quantidade * produto.valor) : '';
         sincronizarContador(linha, quantidade);

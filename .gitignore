@@ -3,6 +3,9 @@
 .well-known/
 .well-known.zip
 
+# Pacotes de publicação (zip enviado ao servidor)
+*.zip
+
 # Dependências e builds
 node_modules/
 
@@ -13,3 +16,8 @@ Desktop.ini
 .vscode/
 .idea/
 *.log
+
+# API: configuração com senha do banco e dados locais (SQLite, sessões)
+api/config.php
+api/dados/*
+!api/dados/.htaccess

@@ -9,6 +9,7 @@
 // e adicione-o na lista RELATORIOS.
 import estoque from './estoque.js';
 import { notificar, copiarTexto, abrirNoWhatsApp } from '../componentes.js';
+import { iniciarSessao } from '../api.js';
 
 const RELATORIOS = [estoque];
 
@@ -21,6 +22,7 @@ iniciar().catch((erro) => {
 });
 
 async function iniciar() {
+    await iniciarSessao();
     const abas = $('#abas-relatorios');
     abas.innerHTML = RELATORIOS.map((r) => `
         <sl-tab slot="nav" panel="${r.id}">${r.emoji} ${r.titulo}</sl-tab>

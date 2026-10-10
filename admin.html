@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cadastros · CajuCake</title>
+  <meta name="description" content="Cadastro de produtos, preços e estoque da CajuCake">
+  <meta name="theme-color" content="#d6457a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap">
+
+  <!-- Shoelace: biblioteca de componentes (https://shoelace.style) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css?v=4.0">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo__conteudo">
+      <span class="topo__logo" aria-hidden="true">⚙️</span>
+      <div>
+        <h1>Cadastros</h1>
+        <p>CajuCake · produtos, preços e estoque</p>
+      </div>
+      <nav class="menu" aria-label="Páginas">
+        <a href="./">🎂 Orçamentos</a>
+        <a href="relatorios.html">📦 Relatórios</a>
+        <a href="admin.html" aria-current="page">⚙️ Cadastros</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="layout-admin">
+    <sl-tab-group id="abas-admin" class="selecao">
+      <sl-tab slot="nav" panel="bolos">🎂 Bolos</sl-tab>
+      <sl-tab slot="nav" panel="corte">🍰 Bolos de Corte</sl-tab>
+      <sl-tab slot="nav" panel="produtos">🧁 Produtos</sl-tab>
+      <sl-tab slot="nav" panel="adicionais">✨ Adicionais</sl-tab>
+      <sl-tab slot="nav" panel="estoque">📦 Estoque</sl-tab>
+      <sl-tab slot="nav" panel="usuarios">👥 Usuários</sl-tab>
+
+      <sl-tab-panel name="bolos">
+        <div id="ed-precos"></div>
+        <div id="ed-tamanhos"></div>
+        <div id="ed-tipos"></div>
+      </sl-tab-panel>
+
+      <sl-tab-panel name="corte">
+        <div id="ed-corte"></div>
+      </sl-tab-panel>
+
+      <sl-tab-panel name="produtos">
+        <div id="ed-secoes-produto"></div>
+        <div class="seletor-secao">
+          <sl-select id="sel-secao-produto" label="Mostrar produtos da seção" size="small"></sl-select>
+        </div>
+        <div id="ed-produtos"></div>
+      </sl-tab-panel>
+
+      <sl-tab-panel name="adicionais">
+        <div id="ed-servicos"></div>
+      </sl-tab-panel>
+
+      <sl-tab-panel name="estoque">
+        <div id="ed-estoque-secoes"></div>
+        <div class="seletor-secao">
+          <sl-select id="sel-secao-estoque" label="Mostrar itens da seção" size="small"></sl-select>
+        </div>
+        <div id="ed-estoque-itens"></div>
+      </sl-tab-panel>
+
+      <sl-tab-panel name="usuarios">
+        <div id="ed-usuarios"></div>
+        <section class="editor">
+          <header class="editor__topo">
+            <div>
+              <h3>Minha senha</h3>
+              <p>Troque a senha do seu próprio usuário.</p>
+            </div>
+          </header>
+          <form id="form-senha" class="form-senha">
+            <label class="editor__celula"><span class="editor__rotulo">Senha atual</span>
+              <input type="password" class="campo" name="atual" autocomplete="current-password" required></label>
+            <label class="editor__celula"><span class="editor__rotulo">Nova senha</span>
+              <input type="password" class="campo" name="nova" autocomplete="new-password" minlength="6" required></label>
+            <sl-button type="submit" variant="primary" size="small">Trocar senha</sl-button>
+          </form>
+        </section>
+      </sl-tab-panel>
+    </sl-tab-group>
+
+    <p class="dica-emoji">💡 Para escolher um emoji: no Windows, tecle <kbd>Win</kbd> + <kbd>.</kbd>; no celular, use o teclado de emojis.</p>
+  </main>
+
+  <script type="module" src="js/admin/app.js?v=4.0"></script>
+</body>
+
+</html>

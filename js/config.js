@@ -11,21 +11,17 @@ export const MARCA = {
     corFundo: '#fff6f9'
 };
 
+// Preços, produtos e estoque vêm do banco de dados (api/). Aqui ficam só arquivos estáticos.
 export const ARQUIVOS_DADOS = {
-    bolos: 'data/bolos.json',
-    bolosCorte: 'data/bolos-corte.json',
-    outrosProdutos: 'data/outros-produtos.json',
-    servicos: 'data/servicos.json',
-    fotosReais: 'data/fotos-reais.json',
-    estoque: 'data/estoque.json'
+    fotosReais: 'data/fotos-reais.json'
 };
 
-// Tipos de bolo decorado. "descricao" é o texto usado no orçamento.
-// As cores são usadas pelo desenho do bolo (js/desenho-bolo.js).
+// Tipos de bolo decorado. Os tipos reais são cadastrados no banco (página Cadastros)
+// e substituem estes ao carregar a calculadora (aplicarTiposDoCatalogo).
+// "descricao" é o texto usado no orçamento; as cores são usadas pelo desenho do bolo.
 // alturaCm:  altura do andar no desenho (padrão 10 cm)
-// estilo:    reaproveita a decoração de outro tipo no desenho
-// derivado:  tipo calculado a partir de outro (não precisa estar em data/bolos.json);
-//            o preço é o do tipo de origem multiplicado por "fatorPreco"
+// estilo:    reaproveita a decoração de outro tipo no desenho (pasta, glace, naked, fake, torta)
+// derivado:  preço calculado a partir de outro tipo, multiplicado por "fatorPreco"
 export const TIPOS_BOLO = {
     pasta: {
         nome: 'Pasta Americana', curto: 'Pasta', descricao: 'Artístico Decorado',
@@ -54,6 +50,13 @@ export const TIPOS_BOLO = {
         cores: { lateral: '#e7b75f', sombra: '#c48f3a', topo: '#f6d48e', detalhe: '#a8682a' }
     }
 };
+
+/** Substitui os tipos padrão pelos cadastrados no banco, na ordem cadastrada. */
+export function aplicarTiposDoCatalogo(tipos) {
+    if (!tipos || !Object.keys(tipos).length) return;
+    for (const chave of Object.keys(TIPOS_BOLO)) delete TIPOS_BOLO[chave];
+    Object.assign(TIPOS_BOLO, tipos);
+}
 
 export const CORES_CORTE = { lateral: '#8a5a3b', sombra: '#6b4128', topo: '#fff1e2', detalhe: '#5a3320' };
 

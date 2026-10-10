@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
   <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
 
-  <link rel="stylesheet" href="css/styles.css?v=3.2">
+  <link rel="stylesheet" href="css/styles.css?v=4.0">
 </head>
 
 <body>
@@ -31,6 +31,7 @@
       <nav class="menu" aria-label="Páginas">
         <a href="./" aria-current="page">🎂 Orçamentos</a>
         <a href="relatorios.html">📦 Relatórios</a>
+        <a href="admin.html">⚙️ Cadastros</a>
       </nav>
     </div>
   </header>
@@ -41,7 +42,6 @@
       <sl-tab-group id="abas">
         <sl-tab slot="nav" panel="bolos">🎂 Bolos <sl-badge pill variant="neutral" id="badge-bolos">0</sl-badge></sl-tab>
         <sl-tab slot="nav" panel="cortes">🍰 Bolos de Corte <sl-badge pill variant="neutral" id="badge-cortes">0</sl-badge></sl-tab>
-        <sl-tab slot="nav" panel="produtos">🧁 Doces &amp; Salgados <sl-badge pill variant="neutral" id="badge-produtos">0</sl-badge></sl-tab>
         <sl-tab slot="nav" panel="servicos">✨ Adicionais <sl-badge pill variant="neutral" id="badge-servicos">0</sl-badge></sl-tab>
 
         <sl-tab-panel name="bolos">
@@ -76,10 +76,6 @@
             <div id="sugestoes-corte" class="chips" aria-live="polite"></div>
           </div>
           <div id="grade-cortes" class="grade"></div>
-        </sl-tab-panel>
-
-        <sl-tab-panel name="produtos">
-          <div id="lista-produtos" class="lista"></div>
         </sl-tab-panel>
 
         <sl-tab-panel name="servicos">
@@ -150,7 +146,7 @@
     </sl-button>
   </sl-dialog>
 
-  <script type="module" src="js/app.js?v=3.2"></script>
+  <script type="module" src="js/app.js?v=4.0"></script>
 </body>
 
 </html>

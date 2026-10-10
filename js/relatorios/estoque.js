@@ -1,23 +1,23 @@
-// Relatório: Balanço de Estoque, em duas seções (abas):
-//   Bolos    -> por tamanho e sabor. Tamanhos: os mesmos do orçamento (data/bolos.json).
-//   Recheios -> itens agrupados. Sabores e recheios ficam em data/estoque.json.
-import { ARQUIVOS_DADOS } from '../config.js';
-import { carregarJSON, escaparHTML, lerPreferencia, salvarPreferencia } from '../util.js';
-import { contador, sincronizarContador } from '../componentes.js';
+// Relatório: Balanço de Estoque. Seções, itens e quantidades vêm do banco (api/estoque)
+// e cada alteração é salva automaticamente. Seções e itens são cadastrados em admin.html.
+//   modo "grade": itens (ex.: sabores) x tamanhos de bolo  -> cartões por tamanho
+//   modo "lista": itens agrupados (ex.: Bases e Geleias)    -> linhas
+import { escaparHTML, lerPreferencia, salvarPreferencia } from '../util.js';
+import { contador, sincronizarContador, notificar } from '../componentes.js';
+import { api } from '../api.js';
 
-const CHAVE_SALVA = 'relatorio-estoque';
+const ESPERA_SALVAR_MS = 700;
 
-let tamanhos = [];
-let sabores = [];
-let gruposRecheio = [];
-let quantidades = new Map();   // bolos: "20:branco" | recheios: "r:geleia-morango"
-let mostrarZerados = false;
+let dados = { tamanhos: [], secoes: [] };
+let quantidades = new Map();   // "itemId:tamanho" (lista usa tamanho 0) -> quantidade
+let pendentes = new Map();     // alterações ainda não enviadas ao servidor
+let temporizador = null;
+let salvando = false;
+let mostrarZerados = lerPreferencia('estoqueZerados', false);
 let raiz = null;
 let avisar = () => {};
 
-const chaveBolo = (tamanho, sabor) => tamanho + ':' + sabor;
-const chaveRecheio = (id) => 'r:' + id;
-const plural = (n, um, varios) => n + ' ' + (n === 1 ? um : varios);
+const chave = (itemId, tamanho = 0) => itemId + ':' + tamanho;
 
 export default {
     id: 'estoque',
@@ -27,88 +27,105 @@ export default {
     async iniciar(container, aoMudar) {
         raiz = container;
         avisar = aoMudar;
-        const [bolos, estoque] = await Promise.all([
-            carregarJSON(ARQUIVOS_DADOS.bolos),
-            carregarJSON(ARQUIVOS_DADOS.estoque)
-        ]);
-        tamanhos = bolos.bolos.map((b) => b.tamanho);
-        sabores = estoque.sabores;
-        gruposRecheio = estoque.recheios || [];
-
-        // última contagem salva neste aparelho
-        const salvo = lerPreferencia(CHAVE_SALVA, {});
-        mostrarZerados = !!salvo.mostrarZerados;
-        const restaurar = (k) => quantidades.set(k, +(salvo.quantidades?.[k]) || 0);
-        for (const t of tamanhos) sabores.forEach((s) => restaurar(chaveBolo(t, s.id)));
-        for (const grupo of gruposRecheio) grupo.itens.forEach((item) => restaurar(chaveRecheio(item.id)));
-
+        await carregar();
         renderizar();
         ligarEventos();
         sincronizar();
+
+        // traz alterações feitas por outras pessoas ao voltar para a aba
+        document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible' && !pendentes.size && !salvando) {
+                await carregar();
+                sincronizar();
+                avisar();
+            }
+        });
+        window.addEventListener('beforeunload', (evento) => {
+            if (pendentes.size || salvando) evento.preventDefault();
+        });
     },
 
     resumo() {
-        const { bolos, recheios } = totais();
-        return plural(bolos, 'bolo', 'bolos') + ' · ' + plural(recheios, 'recheio', 'recheios');
+        return dados.secoes.map((s) => s.nome + ': ' + totalDaSecao(s)).join(' · ') || '—';
     },
 
     gerarTexto({ data, observacoes }) {
-        const { bolos, recheios } = totais();
         let texto = '📦 *Balanço de Estoque*\n';
         texto += '📅 ' + data + '\n';
 
-        // ---- bolos
-        texto += '\n🎂 *BOLOS*\n';
-        for (const sabor of sabores) {
-            const itens = tamanhos
-                .map((t) => ({ nome: t + ' cm', quantidade: quantidades.get(chaveBolo(t, sabor.id)) }));
-            texto += secao(sabor.emoji + ' *' + sabor.plural + '*', itens);
-        }
-
-        // ---- recheios
-        if (gruposRecheio.length) {
-            texto += '\n🍯 *RECHEIOS*\n';
-            for (const grupo of gruposRecheio) {
-                const itens = grupo.itens
-                    .map((item) => ({ nome: item.emoji + ' ' + item.nome, quantidade: quantidades.get(chaveRecheio(item.id)) }));
-                texto += secao('*' + grupo.grupo + '*', itens, '');
+        for (const secao of dados.secoes) {
+            texto += '\n' + secao.emoji + ' *' + secao.nome.toUpperCase() + '*\n';
+            if (!secao.itens.length) {
+                texto += 'sem itens cadastrados\n';
+                continue;
+            }
+            if (secao.modo === 'grade') {
+                for (const item of secao.itens) {
+                    const linhas = dados.tamanhos.map((t) => ({ nome: '• ' + t + ' cm', quantidade: quantidades.get(chave(item.id, t)) || 0 }));
+                    texto += bloco(item.emoji + ' *' + (item.plural || item.nome) + '*', linhas);
+                }
+            } else {
+                for (const [grupo, itens] of agruparPorGrupo(secao.itens)) {
+                    const linhas = itens.map((i) => ({ nome: i.emoji + ' ' + i.nome, quantidade: quantidades.get(chave(i.id)) || 0 }));
+                    texto += bloco(grupo ? '*' + grupo + '*' : null, linhas);
+                }
             }
         }
 
         texto += '___________________\n';
-        texto += '*Total: ' + plural(bolos, 'bolo', 'bolos') + ' · ' + plural(recheios, 'recheio', 'recheios') + '*\n';
+        texto += '*Total — ' + this.resumo() + '*\n';
         if (observacoes) texto += '📝 _' + observacoes + '_\n';
         return texto.trim();
     },
 
     limpar() {
-        for (const k of quantidades.keys()) quantidades.set(k, 0);
-        mudou();
+        if (!confirm('Zerar TODAS as quantidades do estoque? Isso vale para toda a equipe.')) return;
+        for (const [k, q] of quantidades) {
+            if (q !== 0) definir(k, 0, false);
+        }
+        salvarAgora();
     }
 };
 
-/** Título + lista "• nome: qtd". Sem itens contados (e sem listar zerados) vira "sem estoque". */
-function secao(titulo, itens, marcador = '• ') {
-    const visiveis = itens.filter((i) => mostrarZerados || i.quantidade > 0);
-    const subtotal = itens.reduce((soma, i) => soma + i.quantidade, 0);
+async function carregar() {
+    dados = await api('estoque');
+    quantidades = new Map(Object.entries(dados.quantidades).map(([k, q]) => [k, +q]));
+    for (const [k, q] of pendentes) quantidades.set(k, q);
+}
+
+/** Título + linhas "nome: qtd". Sem nada contado (e sem listar zerados) vira "sem estoque". */
+function bloco(titulo, linhas) {
+    const subtotal = linhas.reduce((soma, l) => soma + l.quantidade, 0);
     if (!subtotal && !mostrarZerados) {
-        return titulo + ': sem estoque\n';
+        return (titulo ? titulo + ': ' : '') + 'sem estoque\n';
     }
-    let texto = titulo + ' (' + subtotal + ')\n';
-    for (const item of visiveis) {
-        texto += marcador + item.nome + ': ' + item.quantidade + (item.quantidade ? '' : ' ⚠️') + '\n';
+    let texto = titulo ? titulo + ' (' + subtotal + ')\n' : '';
+    for (const linha of linhas) {
+        if (mostrarZerados || linha.quantidade > 0) {
+            texto += linha.nome + ': ' + linha.quantidade + (linha.quantidade ? '' : ' ⚠️') + '\n';
+        }
     }
     return texto;
 }
 
-function totais() {
-    let bolos = 0;
-    let recheios = 0;
-    for (const [k, q] of quantidades) {
-        if (k.startsWith('r:')) recheios += q;
-        else bolos += q;
+function agruparPorGrupo(itens) {
+    const grupos = new Map();
+    for (const item of itens) {
+        const grupo = item.grupo || '';
+        if (!grupos.has(grupo)) grupos.set(grupo, []);
+        grupos.get(grupo).push(item);
     }
-    return { bolos, recheios };
+    return grupos;
+}
+
+function chavesDaSecao(secao) {
+    return secao.modo === 'grade'
+        ? secao.itens.flatMap((i) => dados.tamanhos.map((t) => chave(i.id, t)))
+        : secao.itens.map((i) => chave(i.id));
+}
+
+function totalDaSecao(secao) {
+    return chavesDaSecao(secao).reduce((soma, k) => soma + (quantidades.get(k) || 0), 0);
 }
 
 // =====================================================================
@@ -121,53 +138,65 @@ function renderizar() {
         <div class="painel-sugestao__titulo">
           <sl-icon name="box-seam"></sl-icon>
           Contagem do estoque
-          <small>marque cada item e ajuste a quantidade</small>
+          <small>marque cada item e ajuste a quantidade — salva automaticamente</small>
         </div>
-        <sl-switch size="small" data-estoque="zerados" ${mostrarZerados ? 'checked' : ''}>
-          Listar itens zerados na mensagem
-        </sl-switch>
+        <div class="estoque-barra">
+          <sl-switch size="small" data-estoque="zerados" ${mostrarZerados ? 'checked' : ''}>
+            Listar itens zerados na mensagem
+          </sl-switch>
+          <span class="status-salvamento" data-campo="status"></span>
+        </div>
       </div>
 
+      ${dados.secoes.length ? `
       <sl-tab-group class="subabas">
-        <sl-tab slot="nav" panel="bolos">🎂 Bolos <sl-badge pill variant="neutral" data-badge="bolos">0</sl-badge></sl-tab>
-        <sl-tab slot="nav" panel="recheios">🍯 Recheios <sl-badge pill variant="neutral" data-badge="recheios">0</sl-badge></sl-tab>
+        ${dados.secoes.map((s) => `
+          <sl-tab slot="nav" panel="estoque-${s.id}">${s.emoji} ${escaparHTML(s.nome)}
+            <sl-badge pill variant="neutral" data-badge="${s.id}">0</sl-badge></sl-tab>`).join('')}
+        ${dados.secoes.map((s) => `
+          <sl-tab-panel name="estoque-${s.id}">
+            ${!s.itens.length ? '<p class="mensagem-suave">Nenhum item nesta seção. Cadastre em ⚙️ Cadastros.</p>'
+                : s.modo === 'grade' ? renderizarGrade(s) : renderizarLista(s)}
+          </sl-tab-panel>`).join('')}
+      </sl-tab-group>` : '<p class="mensagem-suave">Nenhuma seção de estoque cadastrada. Cadastre em ⚙️ Cadastros.</p>'}`;
+}
 
-        <sl-tab-panel name="bolos">
-          <div class="grade grade--estoque">
-            ${tamanhos.map((t) => `
-              <article class="cartao-item cartao-estoque" data-tamanho="${t}">
-                <div class="cartao-estoque__topo">
-                  <span class="cartao-item__tamanho">${t}<small>cm</small></span>
-                  <span class="cartao-estoque__total" data-campo="total"></span>
-                </div>
-                ${sabores.map((s) => `
-                  <div class="linha-sabor" data-chave="${chaveBolo(t, s.id)}">
-                    <button type="button" class="linha-sabor__marcar" data-acao="marcar" aria-pressed="false">
-                      <sl-icon name="check-circle-fill"></sl-icon>
-                      <span>${s.emoji} ${escaparHTML(s.nome)}</span>
-                    </button>
-                    ${contador('estoque', chaveBolo(t, s.id))}
-                  </div>`).join('')}
-              </article>`).join('')}
-          </div>
-        </sl-tab-panel>
+function linhaMarcavel(k, rotulo) {
+    return `
+      <button type="button" class="linha-sabor__marcar" data-acao="marcar" aria-pressed="false">
+        <sl-icon name="check-circle-fill"></sl-icon>
+        <span>${rotulo}</span>
+      </button>
+      ${contador('estoque', k)}`;
+}
 
-        <sl-tab-panel name="recheios">
-          ${gruposRecheio.map((grupo) => `
-            <h3 class="titulo-grupo">${escaparHTML(grupo.grupo)}</h3>
-            <div class="lista">
-              ${grupo.itens.map((item) => `
-                <div class="linha linha--estoque" data-chave="${chaveRecheio(item.id)}">
-                  <span class="linha__emoji" aria-hidden="true">${item.emoji}</span>
-                  <button type="button" class="linha-sabor__marcar" data-acao="marcar" aria-pressed="false">
-                    <sl-icon name="check-circle-fill"></sl-icon>
-                    <span class="linha__nome">${escaparHTML(item.nome)}</span>
-                  </button>
-                  ${contador('estoque', chaveRecheio(item.id))}
-                </div>`).join('')}
-            </div>`).join('')}
-        </sl-tab-panel>
-      </sl-tab-group>`;
+function renderizarGrade(secao) {
+    return `
+      <div class="grade grade--estoque">
+        ${dados.tamanhos.map((t) => `
+          <article class="cartao-item cartao-estoque" data-tamanho="${t}" data-secao="${secao.id}">
+            <div class="cartao-estoque__topo">
+              <span class="cartao-item__tamanho">${t}<small>cm</small></span>
+              <span class="cartao-estoque__total" data-campo="total"></span>
+            </div>
+            ${secao.itens.map((item) => `
+              <div class="linha-sabor" data-chave="${chave(item.id, t)}">
+                ${linhaMarcavel(chave(item.id, t), item.emoji + ' ' + escaparHTML(item.nome))}
+              </div>`).join('')}
+          </article>`).join('')}
+      </div>`;
+}
+
+function renderizarLista(secao) {
+    return [...agruparPorGrupo(secao.itens)].map(([grupo, itens]) => `
+      ${grupo ? `<h3 class="titulo-grupo">${escaparHTML(grupo)}</h3>` : ''}
+      <div class="lista">
+        ${itens.map((item) => `
+          <div class="linha linha--estoque" data-chave="${chave(item.id)}">
+            <span class="linha__emoji" aria-hidden="true">${item.emoji}</span>
+            ${linhaMarcavel(chave(item.id), '<span class="linha__nome">' + escaparHTML(item.nome) + '</span>')}
+          </div>`).join('')}
+      </div>`).join('');
 }
 
 function ligarEventos() {
@@ -175,13 +204,16 @@ function ligarEventos() {
         const delta = evento.target.closest('.contador [data-delta]');
         if (delta) {
             const k = delta.closest('.contador').dataset.chave;
-            definir(k, quantidades.get(k) + +delta.dataset.delta);
+            definir(k, (quantidades.get(k) || 0) + +delta.dataset.delta);
             return;
         }
         const marcar = evento.target.closest('[data-acao="marcar"]');
         if (marcar) {
             const k = marcar.closest('[data-chave]').dataset.chave;
             definir(k, quantidades.get(k) > 0 ? 0 : 1);
+        }
+        if (evento.target.closest('[data-acao="tentar-novamente"]')) {
+            salvarAgora();
         }
     });
 
@@ -193,46 +225,102 @@ function ligarEventos() {
     raiz.addEventListener('sl-change', (evento) => {
         if (evento.target.dataset.estoque === 'zerados') {
             mostrarZerados = evento.target.checked;
-            mudou();
+            salvarPreferencia('estoqueZerados', mostrarZerados);
+            avisar();
         }
     });
 }
 
-function definir(k, quantidade) {
-    quantidades.set(k, Math.max(0, Math.min(9999, Math.round(quantidade))));
-    mudou();
-}
-
-function mudou() {
-    salvarPreferencia(CHAVE_SALVA, { quantidades: Object.fromEntries(quantidades), mostrarZerados });
+function definir(k, quantidade, agendar = true) {
+    const valor = Math.max(0, Math.min(99999, Math.round(quantidade)));
+    quantidades.set(k, valor);
+    pendentes.set(k, valor);
     sincronizar();
     avisar();
+    if (agendar) {
+        clearTimeout(temporizador);
+        temporizador = setTimeout(salvarAgora, ESPERA_SALVAR_MS);
+    }
+}
+
+// =====================================================================
+// Salvamento
+// =====================================================================
+
+async function salvarAgora() {
+    clearTimeout(temporizador);
+    if (salvando || !pendentes.size) return;
+
+    const lote = new Map(pendentes);
+    pendentes.clear();
+    salvando = true;
+    mostrarStatus('salvando');
+    try {
+        const itens = [...lote].map(([k, quantidade]) => {
+            const [itemId, tamanho] = k.split(':').map(Number);
+            return { item_id: itemId, tamanho, quantidade };
+        });
+        const resposta = await api('estoque/quantidades', { metodo: 'POST', corpo: { itens } });
+        dados.ultimaAtualizacao = { em: resposta.em, por: resposta.por };
+        mostrarStatus('salvo');
+    } catch (erro) {
+        // devolve para a fila, sem sobrescrever alterações mais novas
+        for (const [k, q] of lote) if (!pendentes.has(k)) pendentes.set(k, q);
+        mostrarStatus('erro');
+        notificar('Não foi possível salvar o estoque: ' + erro.message, 'danger', 'exclamation-octagon');
+    } finally {
+        salvando = false;
+        if (pendentes.size && document.querySelector('[data-campo="status"]')?.dataset.estado !== 'erro') {
+            salvarAgora();
+        }
+    }
+}
+
+function mostrarStatus(estadoAtual) {
+    const campo = raiz.querySelector('[data-campo="status"]');
+    if (!campo) return;
+    campo.dataset.estado = estadoAtual;
+    if (estadoAtual === 'salvando') {
+        campo.innerHTML = '<sl-spinner></sl-spinner> Salvando…';
+    } else if (estadoAtual === 'erro') {
+        campo.innerHTML = '⚠️ Não salvo · <button type="button" class="link" data-acao="tentar-novamente">tentar novamente</button>';
+    } else {
+        campo.textContent = textoUltimaAtualizacao();
+    }
+}
+
+function textoUltimaAtualizacao() {
+    const ultima = dados.ultimaAtualizacao;
+    if (!ultima) return '';
+    const [dia, hora] = ultima.em.split(' ');
+    const [ano, mes, d] = dia.split('-');
+    return '☁️ Salvo · ' + d + '/' + mes + ' ' + hora.slice(0, 5) + (ultima.por ? ' por ' + ultima.por : '');
 }
 
 function sincronizar() {
-    // cada linha (sabor de um tamanho ou item de recheio)
     for (const linha of raiz.querySelectorAll('[data-chave]:not(.contador)')) {
-        const q = quantidades.get(linha.dataset.chave);
+        const q = quantidades.get(linha.dataset.chave) || 0;
         linha.classList.toggle('selecionado', q > 0);
         linha.querySelector('[data-acao="marcar"]').setAttribute('aria-pressed', String(q > 0));
         sincronizarContador(linha, q);
     }
 
-    // total por tamanho
     for (const cartao of raiz.querySelectorAll('[data-tamanho]')) {
-        const total = sabores.reduce((soma, s) => soma + quantidades.get(chaveBolo(cartao.dataset.tamanho, s.id)), 0);
+        const secao = dados.secoes.find((s) => s.id === +cartao.dataset.secao);
+        const total = secao.itens.reduce((soma, i) => soma + (quantidades.get(chave(i.id, cartao.dataset.tamanho)) || 0), 0);
         cartao.classList.toggle('selecionado', total > 0);
         cartao.querySelector('[data-campo="total"]').textContent = total ? total + ' no total' : '';
     }
 
-    // contadores das abas
-    const contagem = { bolos: 0, recheios: 0 };
-    for (const [k, q] of quantidades) {
-        if (q > 0) contagem[k.startsWith('r:') ? 'recheios' : 'bolos']++;
+    for (const secao of dados.secoes) {
+        const marcados = chavesDaSecao(secao).filter((k) => quantidades.get(k) > 0).length;
+        const badge = raiz.querySelector(`[data-badge="${secao.id}"]`);
+        if (badge) {
+            badge.textContent = marcados;
+            badge.variant = marcados ? 'primary' : 'neutral';
+        }
     }
-    for (const [nome, n] of Object.entries(contagem)) {
-        const badge = raiz.querySelector(`[data-badge="${nome}"]`);
-        badge.textContent = n;
-        badge.variant = n ? 'primary' : 'neutral';
-    }
+
+    const status = raiz.querySelector('[data-campo="status"]');
+    if (status && !status.dataset.estado) status.textContent = textoUltimaAtualizacao();
 }

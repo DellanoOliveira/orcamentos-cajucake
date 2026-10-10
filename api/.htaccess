@@ -1,0 +1,16 @@
+# API: todas as rotas passam pelo index.php (ex.: /api/estoque -> index.php)
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+# Arquivos internos que nunca devem ser acessados pelo navegador
+<FilesMatch "^(config|config\.exemplo)\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
