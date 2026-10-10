@@ -1,0 +1,79 @@
+{
+  "bolos": [
+    {
+      "tamanho": 10,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 100.00, "fatias": 4 },
+        "glace": { "valor": 67.00, "fatias": 4 },
+        "fake": { "valor": 43.75, "fatias": 0 },
+        "naked": { "valor": 60.00, "fatias": 4 }
+      }
+    },
+    {
+      "tamanho": 15,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 240.00, "fatias": 12 },
+        "glace": { "valor": 187.00, "fatias": 12 },
+        "fake": { "valor": 124.25, "fatias": 0 },
+        "naked": { "valor": 157.00, "fatias": 12 },
+        "torta": { "valor": 47.00, "fatias": 5 }
+      }
+    },
+    {
+      "tamanho": 20,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 295.00, "fatias": 28 },
+        "glace": { "valor": 237.00, "fatias": 28 },
+        "fake": { "valor": 144.75, "fatias": 0 },
+        "naked": { "valor": 197.00, "fatias": 28 },
+        "torta": { "valor": 77.00, "fatias": 12 }
+      }
+    },
+    {
+      "tamanho": 25,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 350.00, "fatias": 44 },
+        "glace": { "valor": 287.00, "fatias": 44 },
+        "naked": { "valor": 267.00, "fatias": 44 },
+        "fake": { "valor": 169.25, "fatias": 0 },
+        "torta": { "valor": 107.00, "fatias": 28 }
+      }
+    },
+    {
+      "tamanho": 30,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 400.00, "fatias": 58 },
+        "glace": { "valor": 337.00, "fatias": 58 },
+        "naked": { "valor": 337.00, "fatias": 58 },
+        "fake": { "valor": 193.75, "fatias": 0 },
+        "torta": { "valor": 157.00, "fatias": 40 }
+      }
+    },
+    {
+      "tamanho": 35,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 500.00, "fatias": 84 },
+        "glace": { "valor": 387.00, "fatias": 84 },
+        "naked": { "valor": 397.00, "fatias": 84 },
+        "fake": { "valor": 218.25, "fatias": 0 }
+      }
+    },
+    {
+      "tamanho": 40,
+      "emoji": "🎂",
+      "tipos": {
+        "pasta": { "valor": 600.00, "fatias": 102 },
+        "glace": { "valor": 427.00, "fatias": 102 },
+        "naked": { "valor": 447.00, "fatias": 102 },
+        "fake": { "valor": 242.75, "fatias": 0 },
+        "torta": { "valor": 207.00, "fatias": 60 }
+      }
+    }
+  ]
+}

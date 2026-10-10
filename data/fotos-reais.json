@@ -1,0 +1,921 @@
+{
+  "gerado": "2026-10-10T21:59:27.372Z",
+  "fotos": [
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        10
+      ],
+      "arquivo": "img/fotos-reais/corte/10.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        15
+      ],
+      "arquivo": "img/fotos-reais/corte/15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        20
+      ],
+      "arquivo": "img/fotos-reais/corte/20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        25
+      ],
+      "arquivo": "img/fotos-reais/corte/25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        30
+      ],
+      "arquivo": "img/fotos-reais/corte/30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        35
+      ],
+      "arquivo": "img/fotos-reais/corte/35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "corte",
+      "tamanhos": [
+        40
+      ],
+      "arquivo": "img/fotos-reais/corte/40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        10
+      ],
+      "arquivo": "img/fotos-reais/fake/10.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        15
+      ],
+      "arquivo": "img/fotos-reais/fake/15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        20
+      ],
+      "arquivo": "img/fotos-reais/fake/20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        25
+      ],
+      "arquivo": "img/fotos-reais/fake/25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        30
+      ],
+      "arquivo": "img/fotos-reais/fake/30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        35
+      ],
+      "arquivo": "img/fotos-reais/fake/35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        40
+      ],
+      "arquivo": "img/fotos-reais/fake/40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        10,
+        15
+      ],
+      "arquivo": "img/fotos-reais/fake/10-15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        10,
+        20
+      ],
+      "arquivo": "img/fotos-reais/fake/10-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/fake/15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        15,
+        25
+      ],
+      "arquivo": "img/fotos-reais/fake/15-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/fake/20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/fake/20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/fake/25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/fake/25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        30,
+        35
+      ],
+      "arquivo": "img/fotos-reais/fake/30-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/fake/30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        35,
+        40
+      ],
+      "arquivo": "img/fotos-reais/fake/35-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        10,
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/fake/10-15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        10,
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/fake/10-20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        15,
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/fake/15-20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        15,
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/fake/15-25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        20,
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/fake/20-25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "fake",
+      "tamanhos": [
+        20,
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/fake/20-30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        10
+      ],
+      "arquivo": "img/fotos-reais/glace/10.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        15
+      ],
+      "arquivo": "img/fotos-reais/glace/15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        20
+      ],
+      "arquivo": "img/fotos-reais/glace/20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        25
+      ],
+      "arquivo": "img/fotos-reais/glace/25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        30
+      ],
+      "arquivo": "img/fotos-reais/glace/30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        35
+      ],
+      "arquivo": "img/fotos-reais/glace/35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        40
+      ],
+      "arquivo": "img/fotos-reais/glace/40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        10,
+        15
+      ],
+      "arquivo": "img/fotos-reais/glace/10-15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        10,
+        20
+      ],
+      "arquivo": "img/fotos-reais/glace/10-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/glace/15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        15,
+        25
+      ],
+      "arquivo": "img/fotos-reais/glace/15-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/glace/20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/glace/20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/glace/25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/glace/25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        30,
+        35
+      ],
+      "arquivo": "img/fotos-reais/glace/30-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/glace/30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        35,
+        40
+      ],
+      "arquivo": "img/fotos-reais/glace/35-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        10,
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/glace/10-15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        10,
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/glace/10-20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        15,
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/glace/15-20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        15,
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/glace/15-25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        20,
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/glace/20-25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "glace",
+      "tamanhos": [
+        20,
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/glace/20-30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        10
+      ],
+      "arquivo": "img/fotos-reais/naked/10.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        15
+      ],
+      "arquivo": "img/fotos-reais/naked/15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        20
+      ],
+      "arquivo": "img/fotos-reais/naked/20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        25
+      ],
+      "arquivo": "img/fotos-reais/naked/25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        30
+      ],
+      "arquivo": "img/fotos-reais/naked/30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        35
+      ],
+      "arquivo": "img/fotos-reais/naked/35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        40
+      ],
+      "arquivo": "img/fotos-reais/naked/40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        10,
+        15
+      ],
+      "arquivo": "img/fotos-reais/naked/10-15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        10,
+        20
+      ],
+      "arquivo": "img/fotos-reais/naked/10-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/naked/15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        15,
+        25
+      ],
+      "arquivo": "img/fotos-reais/naked/15-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/naked/20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/naked/20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/naked/25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/naked/25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        30,
+        35
+      ],
+      "arquivo": "img/fotos-reais/naked/30-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/naked/30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        35,
+        40
+      ],
+      "arquivo": "img/fotos-reais/naked/35-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        10,
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/naked/10-15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        10,
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/naked/10-20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        15,
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/naked/15-20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        15,
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/naked/15-25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        20,
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/naked/20-25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "naked",
+      "tamanhos": [
+        20,
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/naked/20-30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        10
+      ],
+      "arquivo": "img/fotos-reais/pasta/10.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        15
+      ],
+      "arquivo": "img/fotos-reais/pasta/15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        20
+      ],
+      "arquivo": "img/fotos-reais/pasta/20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        25
+      ],
+      "arquivo": "img/fotos-reais/pasta/25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        30
+      ],
+      "arquivo": "img/fotos-reais/pasta/30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        35
+      ],
+      "arquivo": "img/fotos-reais/pasta/35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        40
+      ],
+      "arquivo": "img/fotos-reais/pasta/40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        10,
+        15
+      ],
+      "arquivo": "img/fotos-reais/pasta/10-15.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        10,
+        20
+      ],
+      "arquivo": "img/fotos-reais/pasta/10-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/pasta/15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        15,
+        25
+      ],
+      "arquivo": "img/fotos-reais/pasta/15-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/pasta/20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/pasta/20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/pasta/25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/pasta/25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        30,
+        35
+      ],
+      "arquivo": "img/fotos-reais/pasta/30-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/pasta/30-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        35,
+        40
+      ],
+      "arquivo": "img/fotos-reais/pasta/35-40.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        10,
+        15,
+        20
+      ],
+      "arquivo": "img/fotos-reais/pasta/10-15-20.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        10,
+        20,
+        30
+      ],
+      "arquivo": "img/fotos-reais/pasta/10-20-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        15,
+        20,
+        25
+      ],
+      "arquivo": "img/fotos-reais/pasta/15-20-25.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        15,
+        25,
+        35
+      ],
+      "arquivo": "img/fotos-reais/pasta/15-25-35.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        20,
+        25,
+        30
+      ],
+      "arquivo": "img/fotos-reais/pasta/20-25-30.svg",
+      "placeholder": true
+    },
+    {
+      "tipo": "pasta",
+      "tamanhos": [
+        20,
+        30,
+        40
+      ],
+      "arquivo": "img/fotos-reais/pasta/20-30-40.svg",
+      "placeholder": true
+    }
+  ]
+}

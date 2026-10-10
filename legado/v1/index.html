@@ -1,0 +1,265 @@
+<!doctype html>
+
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>Calculadora de Orçamentos 🙂</title>
+  <meta name="description" content="A calculadora de orçamentos da caju">
+  <meta name="Dellano" content="CalculadoraDaCaju">
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+<body onload="rederizarOpcoesDeBolo();rederizarOpcoesDeServico();rederizarOpcoesOutrosProdutos()">
+  <script id="template-opcoes-de-bolo" type="x-tmpl-mustache">
+    <div class="row">
+    {{#bolos}}
+    <div class="col-sm-2">
+    
+    <div>
+     <input type="checkbox" id="{{tamanho}}" name="{{tamanho}}" 
+     onchange="boloSelecionado(this, this.id)"
+     data-item="bolo"
+     data-descricao="Bolo {{tamanho}} cm (diâmetro)"
+     data-quantidade-fatias="{{quantidade-fatias}}"
+     data-emoji="{{emoji}}"/>
+     <label for="{{tamanho}}"><b>{{tamanho}} cm</b></label>
+    </div>
+
+      {{#tipos}}
+
+      {{#pasta}}
+      <div>
+      <input type="radio" id="pasta-{{tamanho}}" name="tipo-{{tamanho}}" value="pasta"
+      data-valor="{{pasta.valor}}" data-quantidade-fatias="{{pasta.quantidade-fatias}}"
+      data-imagem="{{pasta.imagem}}" 
+      onchange="tipoSelecionado(this, this.id)"
+      data-descricao = "Artistico Decorado">
+      <label for="pasta-{{tamanho}}">Pasta</label>
+      </div>
+      {{/pasta}}
+
+      {{#glace}}
+      <div>
+      <input type="radio" id="glace-{{tamanho}}" name="tipo-{{tamanho}}" value="glace"
+      data-valor="{{glace.valor}}" data-quantidade-fatias="{{glace.quantidade-fatias}}"
+      data-imagem="{{glace.imagem}}"
+      data-descricao = "Glacê/Chantilly"
+      onchange="tipoSelecionado(this, this.id)">
+      <label for="glace-{{tamanho}}">Glacê</label>
+      </div>
+      {{/glace}}
+
+      {{#naked}}
+      <div>
+      <input type="radio" id="naked-{{tamanho}}" name="tipo-{{tamanho}}" value="naked"
+      data-valor="{{naked.valor}}" data-quantidade-fatias="{{naked.quantidade-fatias}}"
+      data-imagem="{{naked.imagem}}"
+      data-descricao = "Naked"
+      onchange="tipoSelecionado(this, this.id)">
+      <label for="naked-{{tamanho}}">Naked</label>
+      </div>
+      {{/naked}}
+
+      {{#fake}}
+      <div>
+      <input type="radio" id="fake-{{tamanho}}" name="tipo-{{tamanho}}" value="fake"
+      data-valor="{{fake.valor}}" data-quantidade-fatias="{{fake.quantidade-fatias}}"
+      data-imagem="{{fake.imagem}}"
+      data-descricao = "Fake"
+      onchange="tipoSelecionado(this, this.id)">
+      <label for="fake-{{tamanho}}">Fake</label>
+      </div>
+      {{/fake}}
+      
+      {{#torta}}
+      <div>
+      <input type="radio" id="torta-{{tamanho}}" name="tipo-{{tamanho}}" value="torta"
+      data-valor="{{torta.valor}}" data-quantidade-fatias="{{torta.quantidade-fatias}}"
+      data-imagem="{{torta.imagem}}"
+      data-descricao = "Torta"
+      onchange="tipoSelecionado(this, this.id)">
+      <label for="torta-{{tamanho}}">Torta</label>
+      </div>
+      {{/torta}}
+      
+      {{#corte}}
+      <div>
+      <input type="radio" id="corte-{{tamanho}}" name="tipo-{{tamanho}}" value="corte"
+      data-valor="{{corte.valor}}" data-quantidade-fatias="{{corte.quantidade-fatias}}"
+      data-imagem="{{corte.imagem}}"
+      data-descricao = "Torta de Corte"
+      onchange="tipoSelecionado(this, this.id)">
+      <label for="corte-{{tamanho}}">Corte</label>
+      </div>
+      {{/corte}}
+
+      {{/tipos}}
+
+      <div>
+      <label for="quantidade-{{tamanho}}">Quantidade:</label>
+      <input type="number" id="quantidade-{{tamanho}}" name="quantidade-{{tamanho}}"
+      value="0" size="1" min="0" max="10"
+      onchange="atualizarQuantidade({{tamanho}});atualizaListaDeItens();">
+      </div>
+      
+
+    </div>
+    {{/bolos}}
+    </div>
+  </script>
+
+  <script id="template-outros-produtos" type="x-tmpl-mustache">
+    <div class="row">
+      {{#produtos}}
+      <div class="col-sm-6">
+      
+      <div>
+       <input type="checkbox" id="{{nome}}" name="{{nome}}" value="{{tamanho}}"
+        data-descricao="{{nome}}"
+        onchange="outroProdutoSelecionado(this, this.id)"
+        data-item="outro-produto"
+        data-emoji="{{emoji}}"
+        valor="{{valor}}">
+       <label for="{{nome}}"><b>{{nome}}</b></label>
+      </div>
+      
+      <div>
+        <label for="{{nome}}">Quantidade:</label>
+        <input type="number" id="quantidade-{{nome}}" name="quantidade-{{nome}}"
+        value="0" size="1" min="0" max="100"
+        onchange="atualizaListaDeItens();">
+      </div>
+        
+  
+      </div>
+      {{/produtos}}
+      </div>
+  </script>
+
+  <script id="template-opcoes-de-servico" type="x-tmpl-mustache">
+    <div class="row">
+    {{#servicos}}
+    <div class="col-sm-4">
+    
+    <div>
+     <input type="checkbox" id="{{descricao}}" name="{{descricao}}" value="{{tamanho}}"
+      data-descricao="Adicional {{descricao}}"
+      data-emoji="{{emoji}}"
+      onchange="servicoSelecionado(this, this.id)"
+      data-item="servico">
+     <label for="{{descricao}}"><b>{{descricao}}</b></label>
+    </div>
+    
+    <div>
+      <label for="valor-{{descricao}}">Valor R$:</label>
+      <input type="number" id="valor-{{descricao}}" name="valor-{{descricao}}"
+      value="{{valor}}" size="1" min="0" max="100"
+      onchange="atualizaListaDeItens();">
+    </div>
+      
+
+    </div>
+    {{/servicos}}
+    </div>
+  </script>
+
+  <script id="template-visualizar-bolo" type="x-tmpl-mustache">
+    {{#bolos}}
+    <div class=frame>          
+      <img src="{{img}}" />
+    </div>
+    {{/bolos}}
+  </script>
+
+  <div class="container">
+    <h1 class="display-4">Calculadora de Orçamentos</h1>
+    <hr class="divider" />
+
+   
+    <div id="orcamento-view">
+      <h2 class="display-6">Orçamento
+        
+         <button type="button" class="btn btn-info"
+          onclick="copiarOrcamentoProClipboard()"> <i class="fa fa-clipboard" aria-hidden="true"></i></button></h2>
+
+      <div class="card">
+        <div class="container-fluid card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <textarea class="form-control" rows="15" id="orcamento"></textarea>
+            </div>
+            <div id="visualizar-bolo" class="col-sm-6">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class=" nav-link" data-toggle="" href="#collapseBolos"  aria-expanded="false"
+        aria-controls="collapseBolos">
+        Bolos <span class="badge badge-light" id="quantidade-bolos">0</span>
+      </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="" href="#collapseOutrosProdutos" 
+        aria-expanded="false" aria-controls="collapseOutrosProdutos">
+        Demais Produtos <span class="badge badge-light" id="quantidade-produtos">0</span>
+      </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="" href="#collapseServicos"  aria-expanded="false"
+        aria-controls="collapseServicos">
+        Serviços <span class="badge badge-light" id="quantidade-servicos">0</span>
+      </a>
+      </li>
+    </ul>
+    <hr class="divider" />
+    <div class="" id="collapseBolos">
+      <h2 class="display-6">Bolos</h2>
+      <div class="card">
+        <div id="opcoes-de-bolo" class="container-fluid card-body">
+
+        </div>
+      </div>
+    </div>
+    <div class="" id="collapseOutrosProdutos">
+      <h2 class="display-6">Outros Produtos</h2>
+      <div class="card">
+        <div id="outros-produtos" class="container-fluid card-body">
+
+        </div>
+      </div>
+    </div>
+    <div class="" id="collapseServicos">
+      <h2 class="display-6">Serviços</h2>
+      <div class="card">
+        <div id="opcoes-de-servico" class="container-fluid card-body">
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/mustache@latest"></script>
+  <script src="js/bolos.json"></script>
+  <script src="js/calculadora.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

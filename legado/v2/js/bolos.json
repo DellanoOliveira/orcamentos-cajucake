@@ -1,0 +1,309 @@
+ { 
+    "bolos":
+    [
+        {
+            "tamanho" : 10,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 100.00,
+                        "quantidade-fatias" : 4,
+                        "imagem": "img/pasta/10cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 67.00,
+                        "quantidade-fatias" : 4,
+                        "imagem": "img/glace/10cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 43.75,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/10cm.png",
+                        "emoji": "🎂"
+                    },
+                    "naked": {
+                        "valor" : 60.00,
+                        "quantidade-fatias" : 4,
+                        "imagem": "img/naked/10cm.png",
+                        "emoji": "🎂"
+                    },
+                    "corte": {
+                        "valor" : 60.00,
+                        "quantidade-fatias" : 4,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }   
+                    
+                }
+            ]
+        },
+      
+        {
+            "tamanho" : 15,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 240.00,
+                        "quantidade-fatias" : 12,
+                        "imagem": "img/pasta/15cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 187.00,
+                        "quantidade-fatias" : 12,
+                        "imagem": "img/glace/15cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 124.25,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/15cm.png",
+                        "emoji": "🎂"
+                    },
+                    "naked": {
+                        "valor" : 157.00,
+                        "quantidade-fatias" : 12,
+                        "imagem": "img/naked/15cm.png",
+                        "emoji": "🎂"
+                    },                    
+                    "torta": {
+                        "valor" : 47.00,
+                        "quantidade-fatias" : 5,
+                        "imagem": "img/torta/15cm.png",
+                        "emoji": "🎂"
+                    },
+                    "corte": {
+                        "valor" : 97.00,
+                        "quantidade-fatias" : 12,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }
+                }
+            ]
+        },
+      
+        {
+            "tamanho" : 20,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 295.00,
+                        "quantidade-fatias" : 28,
+                        "imagem": "img/pasta/20cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 237.00,
+                        "quantidade-fatias" : 28,
+                        "imagem": "img/glace/20cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 144.75,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/20cm.png",
+                        "emoji": "🎂"
+                    },
+                    "naked": {
+                        "valor" : 197.00,
+                        "quantidade-fatias" : 28,
+                        "imagem": "img/naked/20cm.png",
+                        "emoji": "🎂"
+                    },                    
+                    "torta": {
+                        "valor" : 77.00,
+                        "quantidade-fatias" : 12,
+                        "imagem": "img/torta/20cm.png",
+                        "emoji": "🎂"
+                    },
+                     "corte": {
+                        "valor" : 137.00,
+                        "quantidade-fatias" : 28,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }
+                }
+            ]
+        },
+     
+        {
+            "tamanho" : 25,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 350.00,
+                        "quantidade-fatias" : 44,
+                        "imagem": "img/pasta/25cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 287.00,
+                        "quantidade-fatias" : 44,
+                        "imagem": "img/glace/25cm.png",
+                        "emoji": "🎂"
+                    },                  
+                    "naked": {
+                        "valor" : 267.00,
+                        "quantidade-fatias" : 44,
+                        "imagem": "img/naked/25cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 169.25,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/25cm.png",
+                        "emoji": "🎂"
+                    },                    
+                    "torta": {
+                        "valor" : 107.00,
+                        "quantidade-fatias" : 28,
+                        "imagem": "img/torta/25cm.png",
+                        "emoji": "🎂"
+                    },
+                    "corte": {
+                        "valor" : 177.00,
+                        "quantidade-fatias" : 44,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }
+                }
+            ]
+        },
+      
+        {
+            "tamanho" : 30,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 400.00,
+                        "quantidade-fatias" : 58,
+                        "imagem": "img/pasta/30cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 337.00,
+                        "quantidade-fatias" : 58,
+                        "imagem": "img/glace/30cm.png",
+                        "emoji": "🎂"
+                    },                  
+                    "naked": {
+                        "valor" : 337.00,
+                        "quantidade-fatias" : 58,
+                        "imagem": "img/naked/30cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 193.75,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/30cm.png",
+                        "emoji": "🎂"
+                    },                    
+                    "torta": {
+                        "valor" : 157.00,
+                        "quantidade-fatias" : 40,
+                        "imagem": "img/torta/30cm.png",
+                        "emoji": "🎂"
+                    },
+                     "corte": {
+                        "valor" : 217.00,
+                        "quantidade-fatias" : 58,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }
+                }
+            ]
+        },
+     
+        {
+            "tamanho" : 35,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 500.00,
+                        "quantidade-fatias" : 84,
+                        "imagem": "img/pasta/35cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 387.00,
+                        "quantidade-fatias" : 84,
+                        "imagem": "img/glace/35cm.png",
+                        "emoji": "🎂"
+                    },                  
+                    "naked": {
+                        "valor" : 397.00,
+                        "quantidade-fatias" : 84,
+                        "imagem": "img/naked/35cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 218.25,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/35cm.png",
+                        "emoji": "🎂"
+                    },
+                     "corte": {
+                        "valor" : 257.00,
+                        "quantidade-fatias" : 84,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }
+                }
+            ]
+        },
+      
+        {
+            "tamanho" : 40,
+            "emoji": "🎂",
+            "tipos" : [
+                { 
+                    "pasta": {
+                        "valor" : 600.00,
+                        "quantidade-fatias" : 102,
+                        "imagem": "img/pasta/40cm.png",
+                        "emoji": "🎂"
+                    },
+                    "glace": {
+                        "valor" : 427.00,
+                        "quantidade-fatias" : 102,
+                        "imagem": "img/glace/40cm.png",
+                        "emoji": "🎂"
+                    },                  
+                    "naked": {
+                        "valor" : 447.00,
+                        "quantidade-fatias" : 102,
+                        "imagem": "img/naked/40cm.png",
+                        "emoji": "🎂"
+                    },
+                    "fake": {
+                        "valor" : 242.75,
+                        "quantidade-fatias" : 0,
+                        "imagem": "img/fake/40cm.png",
+                        "emoji": "🎂"
+                    },                    
+                    "torta": {
+                        "valor" : 207.00,
+                        "quantidade-fatias" : 60,
+                        "imagem": "img/torta/40cm.png",
+                        "emoji": "🎂"
+                    },
+                     "corte": {
+                        "valor" : 297.00,
+                        "quantidade-fatias" : 102,
+                        "imagem": null,
+                        "emoji": "🎂"
+                    }
+                }
+            ]
+        }
+
+    ]
+}   

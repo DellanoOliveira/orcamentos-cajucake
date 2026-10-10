@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#fde3ee"/>
+  <rect x="24" y="24" width="752" height="552" rx="28" fill="none" stroke="#f6b8d1" stroke-width="4" stroke-dasharray="14 10"/>
+  <ellipse cx="400" cy="436" rx="230" ry="18" fill="#000" opacity="0.08"/>
+  <rect x="336.58088235294116" y="368" width="126.83823529411764" height="62" rx="10" fill="#f6b8d1" stroke="#ffffff" stroke-width="3"/><rect x="349.2647058823529" y="306" width="101.47058823529413" height="62" rx="10" fill="#f6b8d1" stroke="#ffffff" stroke-width="3"/>
+  <text x="400" y="86" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#9b6b80" letter-spacing="4">FOTO PROVISÓRIA</text>
+  <text x="400" y="132" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="800" fill="#3b2330">Pasta Americana · 25 + 20 cm</text>
+  <text x="400" y="500" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#7d5a69">Substitua por uma foto real com o nome:</text>
+  <text x="400" y="534" text-anchor="middle" font-family="Consolas, monospace" font-size="22" font-weight="700" fill="#3b2330">img/fotos-reais/pasta/20-25.jpg</text>
+</svg>

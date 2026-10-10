@@ -1,0 +1,9 @@
+{
+  "servicos": [
+    { "descricao": "Esculturas", "valor": 20.00, "emoji": "🎨" },
+    { "descricao": "Arte", "valor": 20.00, "emoji": "🎨" },
+    { "descricao": "Flores de Açucar", "valor": 30.00, "emoji": "🌼" },
+    { "descricao": "Entrega (Podemos calcular seu frete, se desejar)", "valor": 0.00, "emoji": "🚚" },
+    { "descricao": "Desconto", "valor": 0.00, "emoji": "💸", "desconto": true }
+  ]
+}

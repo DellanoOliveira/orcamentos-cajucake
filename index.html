@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Calculadora de Orçamentos · CajuCake</title>
+  <meta name="description" content="Calculadora de orçamentos de bolos e doces da CajuCake">
+  <meta name="theme-color" content="#d6457a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎂</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap">
+
+  <!-- Shoelace: biblioteca de componentes (https://shoelace.style) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/themes/light.css">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.20.1/cdn/shoelace-autoloader.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css?v=3.0">
+</head>
+
+<body>
+  <header class="topo">
+    <div class="topo__conteudo">
+      <span class="topo__logo" aria-hidden="true">🎂</span>
+      <div>
+        <h1>Calculadora de Orçamentos</h1>
+        <p>CajuCake · bolos &amp; doces</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ======================= seleção de itens ======================= -->
+    <section class="selecao" aria-label="Itens do orçamento">
+      <sl-tab-group id="abas">
+        <sl-tab slot="nav" panel="bolos">🎂 Bolos <sl-badge pill variant="neutral" id="badge-bolos">0</sl-badge></sl-tab>
+        <sl-tab slot="nav" panel="cortes">🍰 Bolos de Corte <sl-badge pill variant="neutral" id="badge-cortes">0</sl-badge></sl-tab>
+        <sl-tab slot="nav" panel="produtos">🧁 Doces &amp; Salgados <sl-badge pill variant="neutral" id="badge-produtos">0</sl-badge></sl-tab>
+        <sl-tab slot="nav" panel="servicos">✨ Adicionais <sl-badge pill variant="neutral" id="badge-servicos">0</sl-badge></sl-tab>
+
+        <sl-tab-panel name="bolos">
+          <div class="painel-sugestao">
+            <div class="painel-sugestao__titulo">
+              <sl-icon name="magic"></sl-icon>
+              Sugestão automática
+              <small>avalie sempre o resultado final</small>
+            </div>
+            <div class="painel-sugestao__campos">
+              <sl-input type="number" id="fatias-desejadas" label="Fatias desejadas" min="0" max="2000"
+                inputmode="numeric" placeholder="Ex.: 80" clearable></sl-input>
+              <sl-select id="tipo-sugestao" label="Tipo de bolo"></sl-select>
+            </div>
+            <div id="sugestoes" class="chips" aria-live="polite"></div>
+          </div>
+          <div id="grade-bolos" class="grade"></div>
+        </sl-tab-panel>
+
+        <sl-tab-panel name="cortes">
+          <div class="painel-sugestao">
+            <div class="painel-sugestao__titulo">
+              <sl-icon name="pie-chart"></sl-icon>
+              Composição de fatias
+              <small>bolos de corte completam as fatias do bolo decorado</small>
+            </div>
+            <div class="painel-sugestao__campos">
+              <sl-input type="number" id="fatias-desejadas-corte" label="Fatias desejadas" min="0" max="2000"
+                inputmode="numeric" placeholder="Ex.: 150" clearable></sl-input>
+              <div id="placar-fatias" class="placar"></div>
+            </div>
+            <div id="sugestoes-corte" class="chips" aria-live="polite"></div>
+          </div>
+          <div id="grade-cortes" class="grade"></div>
+        </sl-tab-panel>
+
+        <sl-tab-panel name="produtos">
+          <div id="lista-produtos" class="lista"></div>
+        </sl-tab-panel>
+
+        <sl-tab-panel name="servicos">
+          <div id="lista-servicos" class="lista"></div>
+        </sl-tab-panel>
+      </sl-tab-group>
+    </section>
+
+    <!-- ======================= resumo do orçamento ======================= -->
+    <aside class="resumo" id="resumo" aria-label="Orçamento">
+      <div class="resumo__cartao">
+        <div class="resumo__cabecalho">
+          <h2>Orçamento</h2>
+          <div class="resumo__total" id="total">R$ 0,00</div>
+        </div>
+        <div class="resumo__fatias" id="resumo-fatias"></div>
+
+        <canvas id="preview-bolo" class="preview-bolo" aria-label="Desenho da composição dos bolos"></canvas>
+
+        <div id="foto-real" class="foto-real" hidden></div>
+
+        <sl-textarea id="texto-orcamento" rows="8" resize="auto" label="Texto para WhatsApp"></sl-textarea>
+
+        <div class="acoes">
+          <sl-button variant="primary" id="btn-imagem" size="large">
+            <sl-icon slot="prefix" name="image"></sl-icon>
+            Gerar imagem
+          </sl-button>
+          <sl-button id="btn-copiar" size="large">
+            <sl-icon slot="prefix" name="clipboard"></sl-icon>
+            Copiar texto
+          </sl-button>
+        </div>
+
+        <div class="resumo__rodape">
+          <sl-switch id="incluir-foto" size="small">Foto real na imagem</sl-switch>
+          <sl-button variant="text" size="small" id="btn-limpar">
+            <sl-icon slot="prefix" name="trash"></sl-icon>
+            Limpar
+          </sl-button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- barra fixa no celular -->
+  <div class="barra-mobile">
+    <div>
+      <small>Total</small>
+      <strong id="total-mobile">R$ 0,00</strong>
+    </div>
+    <sl-button pill variant="primary" id="btn-ver-orcamento">
+      <sl-icon slot="prefix" name="receipt"></sl-icon>
+      Ver orçamento
+    </sl-button>
+  </div>
+
+  <sl-dialog id="dialogo-imagem" label="Imagem do orçamento" class="dialogo-imagem">
+    <img id="imagem-gerada" alt="Imagem do orçamento gerada">
+    <p class="dica">No celular, use <b>Compartilhar</b> para enviar direto no WhatsApp.</p>
+    <sl-button slot="footer" id="btn-baixar">
+      <sl-icon slot="prefix" name="download"></sl-icon>
+      Baixar
+    </sl-button>
+    <sl-button slot="footer" variant="primary" id="btn-compartilhar">
+      <sl-icon slot="prefix" name="share"></sl-icon>
+      Compartilhar
+    </sl-button>
+  </sl-dialog>
+
+  <script type="module" src="js/app.js?v=3.0"></script>
+</body>
+
+</html>

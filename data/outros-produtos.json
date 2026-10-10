@@ -1,0 +1,16 @@
+{
+  "produtos": [
+    { "nome": "Baby Cake", "valor": 4.50, "emoji": "🧁", "passo": 10 },
+    { "nome": "Fatia Embalada", "valor": 3.80, "emoji": "🍰", "passo": 10 },
+    { "nome": "Cupcake Simples", "valor": 8.00, "emoji": "🧁", "passo": 1 },
+    { "nome": "Cupcake Personalizado", "valor": 15.00, "emoji": "🧁", "passo": 1 },
+    { "nome": "Pirulito Personalizado", "valor": 15.00, "emoji": "🍭", "passo": 1 },
+    { "nome": "Pirulito Personalizado Quadrado", "valor": 15.00, "emoji": "🍭", "passo": 1 },
+    { "nome": "Maçã Personalizada", "valor": 15.00, "emoji": "🍎", "passo": 1 },
+    { "nome": "Doce Simples", "valor": 1.60, "emoji": "🍥", "passo": 10 },
+    { "nome": "Doce Decorado", "valor": 2.25, "emoji": "🍥", "passo": 10 },
+    { "nome": "Geladinho", "valor": 1.50, "emoji": "🧊", "passo": 10 },
+    { "nome": "Salgado (Frango/Carne/Queijo)", "valor": 0.75, "emoji": "🥟", "passo": 10 },
+    { "nome": "Salgado (Camarão/Bacalhau)", "valor": 0.85, "emoji": "🥟", "passo": 10 }
+  ]
+}

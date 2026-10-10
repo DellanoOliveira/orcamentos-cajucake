@@ -1,0 +1,12 @@
+{
+  "emoji": "🍰",
+  "bolos": [
+    { "tamanho": 10, "valor": 60.00, "fatias": 4 },
+    { "tamanho": 15, "valor": 97.00, "fatias": 12 },
+    { "tamanho": 20, "valor": 137.00, "fatias": 28 },
+    { "tamanho": 25, "valor": 177.00, "fatias": 44 },
+    { "tamanho": 30, "valor": 217.00, "fatias": 58 },
+    { "tamanho": 35, "valor": 257.00, "fatias": 84 },
+    { "tamanho": 40, "valor": 297.00, "fatias": 102 }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+    "produtos": [
+        {
+            "nome": "Baby Cake",
+            "valor": 4.50,
+            "imagem": "img/outros-produtos/baby-cake.png",
+            "emoji": "🧁"
+        },
+       {
+            "nome": "Cupcake Simples",
+            "valor": 8,
+            "imagem": "img/outros-produtos/cupcake-simples.png",
+            "emoji": "🧁"
+        },
+        {
+            "nome": "Cupcake Personalizado",
+            "valor": 15,
+            "imagem": "img/outros-produtos/cupcake-personalizado.png",
+            "emoji": "🧁"
+        },
+        {
+            "nome": "Pirulito Personalizado",
+            "valor": 15,
+            "imagem": "img/outros-produtos/pirulito-personalizado.png",
+            "emoji": "🍭"
+        },
+        {
+            "nome": "Pirulito Personalizado Quadrado",
+            "valor": 15,
+            "imagem": "img/outros-produtos/pirulito-personalizado-quadrado.png",
+            "emoji": "🍭"
+        },
+        {
+            "nome": "Maçã Personalizada",
+            "valor": 15,
+            "imagem": "img/outros-produtos/maca-personalizada.png",
+            "emoji": "🍎"
+        },
+        {
+            "nome": "Doce Simples",
+            "valor": 1.6,
+            "imagem": "img/outros-produtos/doce-simples.png",
+            "emoji": "🍥"
+        },
+        {
+            "nome": "Doce Decorado",
+            "valor": 2.25,
+            "imagem": "img/outros-produtos/doce-decorado.png",
+            "emoji": "🍥"
+        },
+        {
+            "nome": "Geladinho",
+            "valor": 1.50,
+            "imagem": "img/outros-produtos/geladinho.png",
+            "emoji": "🧊"
+        },
+        {
+            "nome": "Salgado (Frango/Carne/Queijo)",
+            "valor": 0.75,
+            "imagem": "img/outros-produtos/salgado-frango-carne-queijo.png",
+            "emoji": "🥟"
+        },
+        {
+            "nome": "Salgado (Camarão/Bacalhau)",
+            "valor": 0.85,
+            "imagem": "img/outros-produtos/salgado-camarao-bacalhau.png",
+            "emoji": "🥟"
+        }
+    ]
+}

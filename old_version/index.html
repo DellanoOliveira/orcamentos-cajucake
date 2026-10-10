@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Orçamentos Cajucake</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Cajucake</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Calculadora
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" onclick="alert('oxe, tem ajuda hoje não!');">Ajuda</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h1 class="mt-5">Calculadora de Orçamentos</h1>
+        <p class="lead">Didi é linda</p>
+      </div>
+    </div>
+	
+	<div class="span12" style="margin-left: 0">
+        <div class="widget-box">
+            <div class="widget-title">
+                <span class="icon">
+                    <i class="icon-th-list"></i>
+				</span>
+                <h5>1) Selecione o tipo do bolo</h5>
+            </div>
+            <div class="widget-content">
+                <div class="row-fluid">
+                
+                <div class="form-group">
+                <div class="input-field col s12">
+   					 <select id="select_tipo" name="tipo_bolo">
+				      <option value="" disabled >Escolha o tipo de bolo</option>
+	     			  <option value="1" selected>Artístico</option>
+	     			  <option value="2">Confeitado</option>
+	     			  <option value="3">Naked</option>
+    	  			 </select>
+    	
+	  			</div>
+                </div>
+                   
+                <div class="span12" id="tam_bolos" style="">
+                
+                <h5>2) Escolha o tamanho dos bolos</h5>  
+
+				<div class="form-group">
+                   
+      			<label for="bolo_10" class="span3"><input type="checkbox" id="bolo_10" name="formas[]" value="1" class="add_valor"/>&nbsp;10 cm - 04 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_10_fake" name="formas[]" value="1" class="add_fake"/>Fake?]</span><br/>
+			    <label for="bolo_15" class="span3"><input type="checkbox" id="bolo_15" name="formas[]" value="2" class="add_valor"/>&nbsp;15 cm - 12 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_15_fake" name="formas[]" value="2" class="add_fake"/>Fake?]</span><br/>
+			    <label for="bolo_20" class="span3"><input type="checkbox" id="bolo_20" name="formas[]" value="3" class="add_valor"/>&nbsp;20 cm - 28 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_20_fake" name="formas[]" value="3" class="add_fake"/>Fake?]</span><br/>
+			    <label for="bolo_25" class="span3"><input type="checkbox" id="bolo_25" name="formas[]" value="4" class="add_valor"/>&nbsp;25 cm - 44 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_25_fake" name="formas[]" value="4" class="add_fake"/>Fake?]</span><br/>
+			    <label for="bolo_30" class="span3"><input type="checkbox" id="bolo_30" name="formas[]" value="5" class="add_valor"/>&nbsp;30 cm - 58 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_30_fake" name="formas[]" value="5" class="add_fake"/>Fake?]</span><br/>
+			    <label for="bolo_35" class="span3"><input type="checkbox" id="bolo_35" name="formas[]" value="6" class="add_valor"/>&nbsp;35 cm - 84 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_35_fake" name="formas[]" value="6" class="add_fake"/>Fake?]</span><br/>
+			    <label for="bolo_40" class="span3"><input type="checkbox" id="bolo_40" name="formas[]" value="7" class="add_valor"/>&nbsp;40 cm - 102 fatias</label><span>&nbsp;[<input type="checkbox" id="bolo_40_fake" name="formas[]" value="7" class="add_fake"/>Fake?]</span><br/>        
+				<label for="bolo_40" class="span3"><input type="checkbox" disabled id="bolo_40" name="formas[]" value="8" class="add_valor"/>&nbsp;45 cm - 130 fatias</label><span>&nbsp;[<input type="checkbox" disabled id="bolo_45_fake" name="formas[]" value="8" class="add_fake"/>Fake?]</span><br/>
+
+				              
+                </div>				
+                
+                </div>
+                
+                
+                <div class="span12">
+                
+                <h5><a class="js-textareacopybtn" data-textarea="js-copytextarea20">3) Clique aqui para copiar a mensagem</a></h5>    
+                
+                </div>
+                
+                <div class="span12">
+        		  <textarea id="valor" rows="10" cols="50" class="js-copytextarea20">  </textarea>
+        		</div>
+                
+            </div>
+        </div>
+    </div>
+    
+    
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+           
+           
+           $('.js-textareacopybtn').click(function () {
+             
+             
+
+       //      
+       
+                      console.log ($(this).data('textarea'));
+           	var copyTextarea = document.querySelector('.' + $(this).data('textarea'));
+		    copyTextarea.select();
+          // 	alert (copyTextarea);
+  		//	copyTextarea.select();
+
+ 				 try {
+				    var successful = document.execCommand('copy');
+				    var msg = successful ? 'successful' : 'unsuccessful';
+				    console.log ('Copying text command was ' + msg);
+				  } catch (err) {
+				    console.log ('Oops, unable to copy');
+				  }
+           
+           });
+           
+    
+           
+           var precos = [];
+           var precos_fake = [33.75,54.25,74.75,99.25,123.75,148.25,172.65];
+           var numFatias = [4,12,28,44,58,84,102];
+           var formas = [10,15,20,25,30,35,40];
+		   var valor = 0;
+		   var fatias = 0;
+	       var tipo = 0;
+	       var msgValor = "";
+	       var msgFatias = "";
+	       var msgDescBolos = "";
+	       var cabecalho = "-----Orçamento-----";
+	       var rodape = "-----------------";
+	       
+	       
+	              
+           $('#select_tipo').change(function () {
+    //var optionSelected = $("option:selected", this);
+    //alert(222);
+    $('.add_valor').attr('checked', false); // reseta checkboxes
+    $('#valor').val(0); //reseta campo valor
+    valor = 0; // reseta valor
+    fatias = 0; //reseta fatias
+   
+   });
+
+	$('.add_valor').change( function () {
+	
+		
+		//tipo = ;
+		//alert (tipo);
+		if ($('#select_tipo').val() == 1) {
+			precos = [47,117,157,207,247,297,327];		
+		} else if ($('#select_tipo').val() == 2) {
+    		precos = [37,97,137,187,227,267,307];
+    	} else if ($('#select_tipo').val() == 3) {
+    		precos = [40,77,117,157,197,237,277];
+    	} else { precos = []; }
+		
+		//alert (precos); 
+	  
+		if (this.checked)
+		{
+			//alert ($('#'+ this.id + '_fake').attr('id'));
+			if ($('#'+ this.id + '_fake').is(":checked")) 
+			{
+				//alert ('a');
+				valor += precos_fake[this.value - 1];
+			} 
+			else {
+				valor += precos[this.value - 1];
+				fatias += numFatias[this.value - 1];
+			}
+			$('#'+ this.id + '_fake').attr('disabled', true);
+		} else {
+			if ($('#'+ this.id + '_fake').is(":checked")) 
+			{
+				$('#'+ this.id + '_fake').attr('checked', false);
+				valor -= precos_fake[this.value - 1];
+			} 
+			else {
+				valor -= precos[this.value - 1];
+				fatias -= numFatias[this.value - 1];
+			}
+			$('#'+ this.id + '_fake').attr('disabled', false);
+		}
+		
+			//alert(valor);
+			
+		msgValor = "Valor total: R$" + valor + ",00";
+		msgFatias = "Quantidade total de fatias: " + fatias ;
+		
+		
+		console.log (msgValor);
+		console.log (msgFatias);
+		
+		//alert (msgValor);
+		msgDescBolos = "";
+		$('.add_valor').each(function () {
+			if (this.checked) {
+				if (!$('#'+ this.id + '_fake').is(":checked")) 
+				{
+					msgDescBolos += "Andar de " + formas[this.value - 1] + "cm ( "+ numFatias[this.value - 1] +" fatias ) - R$"+ precos[this.value - 1] +",00\n";
+				} else {
+					msgDescBolos += "Andar de " + formas[this.value - 1] + "cm (Falso) - R$"+ precos_fake[this.value - 1] +"\n";
+				}
+			}
+		});
+		
+		console.log (msgDescBolos);
+		
+		$('#valor').val(cabecalho+ "\n" + msgDescBolos + "\n" + msgValor + "\n" + msgFatias + "\n" + rodape);
+
+	});
+	
+
+	
+	
+	
+    });
+</script>
+</body>
+
+</html>
