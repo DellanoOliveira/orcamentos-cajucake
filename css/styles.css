@@ -805,3 +805,40 @@ sl-tab-panel::part(base) {
 .linha-sabor__marcar span {
     white-space: nowrap;
 }
+
+/* Abas internas de um relatório (ex.: Bolos / Recheios) */
+.subabas sl-tab-panel::part(base) {
+    padding: 14px 0 0;
+}
+
+.subabas sl-tab::part(base) {
+    font-size: 0.9rem;
+}
+
+.titulo-grupo {
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 18px 0 8px;
+}
+
+.titulo-grupo:first-child {
+    margin-top: 0;
+}
+
+.linha--estoque {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+}
+
+.linha--estoque .linha-sabor__marcar {
+    min-width: 0;
+}
+
+.linha--estoque .linha-sabor__marcar span {
+    white-space: normal;
+}
+
+.resumo__total--texto {
+    font-size: 1.15rem;
+    text-align: right;
+}

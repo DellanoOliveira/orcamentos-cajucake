@@ -2,5 +2,33 @@
   "sabores": [
     { "id": "branco", "nome": "Branco", "plural": "Bolos Brancos", "emoji": "🤍" },
     { "id": "chocolate", "nome": "Chocolate", "plural": "Bolos de Chocolate", "emoji": "🍫" }
+  ],
+  "recheios": [
+    {
+      "grupo": "Bases e Geleias",
+      "itens": [
+        { "id": "base-recheio", "nome": "Base para recheio (saco)", "emoji": "🛍️" },
+        { "id": "geleia-morango", "nome": "Geleia de Morango", "emoji": "🍓" },
+        { "id": "geleia-maracuja", "nome": "Geleia de Maracujá", "emoji": "💛" },
+        { "id": "geleia-frutas-vermelhas", "nome": "Geleia de Frutas Vermelhas", "emoji": "🫐" }
+      ]
+    },
+    {
+      "grupo": "Pastas Saborizantes",
+      "itens": [
+        { "id": "pasta-pistache", "nome": "Pasta Saborizante Pistache", "emoji": "🥜" },
+        { "id": "pasta-limao-siciliano", "nome": "Pasta Saborizante Limão Siciliano", "emoji": "🍋" },
+        { "id": "pasta-avela", "nome": "Pasta Saborizante Avelã", "emoji": "🌰" },
+        { "id": "pasta-gustosia-cafe", "nome": "Pasta Gustosia Sabor Café", "emoji": "☕" },
+        { "id": "pasta-morango", "nome": "Pasta Saborizante Morango", "emoji": "🍓" },
+        { "id": "pasta-frutas-do-bosque", "nome": "Pasta Saborizante Frutas do Bosque", "emoji": "🫐" },
+        { "id": "pasta-coco", "nome": "Pasta Saborizante Coco", "emoji": "🥥" },
+        { "id": "pasta-cereja", "nome": "Pasta Saborizante Cereja", "emoji": "🍒" },
+        { "id": "pasta-nozes", "nome": "Pasta Saborizante Nozes", "emoji": "🌰" },
+        { "id": "pasta-baunilha-premium", "nome": "Pasta Saborizante Baunilha Premium", "emoji": "🍦" },
+        { "id": "pasta-maracuja", "nome": "Pasta Saborizante Maracujá", "emoji": "💛" },
+        { "id": "pasta-damasco", "nome": "Pasta Saborizante Damasco", "emoji": "🍑" }
+      ]
+    }
   ]
 }

@@ -78,8 +78,8 @@ Ao publicar uma nova versão, aumente o `?v=` em `index.html` para evitar cache 
 
 A página `relatorios.html` gera mensagens para WhatsApp que não são orçamentos.
 
-- **Balanço de Estoque**: quantidade de bolos por tamanho (mesmos do orçamento) e sabor.
-  Os sabores ficam em `data/estoque.json`. A última contagem fica salva no aparelho.
+- **Balanço de Estoque**: abas Bolos (por tamanho e sabor, mesmos tamanhos do orçamento) e Recheios.
+  Sabores e recheios ficam em `data/estoque.json`. A última contagem fica salva no aparelho.
 
 Para criar um novo relatório, crie um arquivo em `js/relatorios/` seguindo o modelo de
 `estoque.js` e adicione-o na lista `RELATORIOS` em `js/relatorios/app.js`.

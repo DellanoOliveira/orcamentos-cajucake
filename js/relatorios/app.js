@@ -1,9 +1,9 @@
 // Página de relatórios: cada relatório é um módulo em js/relatorios/ registrado abaixo.
 //
 // Para criar um novo relatório, crie um arquivo exportando (export default):
-//   id, titulo, emoji, unidade: ['item', 'itens']
+//   id, titulo, emoji
 //   iniciar(container, aoMudar)   desenha os controles e chama aoMudar() a cada alteração
-//   total()                       número exibido no resumo
+//   resumo()                      texto curto exibido no resumo (ex.: "7 bolos · 3 recheios")
 //   gerarTexto({ data, observacoes })  mensagem para o WhatsApp
 //   limpar()
 // e adicione-o na lista RELATORIOS.
@@ -33,6 +33,7 @@ async function iniciar() {
     $('#data-relatorio').value = hojeISO();
 
     abas.addEventListener('sl-tab-show', (evento) => {
+        if (evento.target !== abas) return; // abas internas de um relatório
         ativo = RELATORIOS.find((r) => r.id === evento.detail.name) || ativo;
         atualizar();
     });
@@ -47,8 +48,7 @@ async function iniciar() {
 }
 
 function atualizar() {
-    const total = ativo.total();
-    const rotulo = total + ' ' + (total === 1 ? ativo.unidade[0] : ativo.unidade[1]);
+    const rotulo = ativo.resumo();
     $('#titulo-resumo').textContent = ativo.titulo;
     $('#total').textContent = rotulo;
     $('#total-mobile').textContent = rotulo;
